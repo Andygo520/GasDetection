@@ -1,98 +1,17 @@
-//package retrofit;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Map;
-//
-//import component.basic.model.Img;
-//import component.com.model.ComBox;
-//import component.com.model.ComStation;
-//import component.com.model.ComTool;
-//import component.company.model.Company;
-//import component.company.model.CompanyProduct;
-//import component.custom.model.Custom;
-//import component.custom.model.CustomDeliver;
-//import component.custom.model.CustomOrder;
-//import component.finance.model.FinanceCnInvoice;
-//import component.finance.model.FinanceEnInvoice;
-//import component.finance.model.FinancePayOutsourcing;
-//import component.finance.model.FinancePaySupply;
-//import component.flow.model.FlowMessage;
-//import component.flow.model.FlowNode;
-//import component.half.model.HalfInOrder;
-//import component.half.model.HalfInOrderSpace;
-//import component.half.model.HalfOutOrder;
-//import component.half.model.HalfOutOrderSpace;
-//import component.half.model.HalfSpace;
-//import component.half.model.HalfStock;
-//import component.half.model.HalfStockCheck;
-//import component.item.model.ItemInOrder;
-//import component.item.model.ItemInOrderSpace;
-//import component.item.model.ItemOutOrder;
-//import component.item.model.ItemPaySupply;
-//import component.item.model.ItemSpace;
-//import component.item.model.ItemStock;
-//import component.item.model.ItemStockCheck;
-//import component.material.model.MaterialInOrder;
-//import component.material.model.MaterialInOrderSpace;
-//import component.material.model.MaterialOutOrder;
-//import component.material.model.MaterialOutOrderSpace;
-//import component.material.model.MaterialSpace;
-//import component.material.model.MaterialStock;
-//import component.material.model.MaterialStockCheck;
-//import component.mould.model.Mould;
-//import component.mould.model.MouldSpace;
-//import component.outsourcing.model.Outsourcing;
-//import component.outsourcing.model.OutsourcingOrder;
-//import component.produce.model.ProduceBom;
-//import component.produce.model.ProduceBomBatch;
-//import component.produce.model.ProduceBomProcess;
-//import component.produce.model.ProduceDailyBom;
-//import component.produce.model.ProduceDailyPlan;
-//import component.produce.model.ProducePlan;
-//import component.produce.model.ProducePlanBatch;
-//import component.produce.model.ProducePlanProcess;
-//import component.produce.model.ProduceReceiveBom;
-//import component.produce.model.ProduceReceivePlan;
-//import component.produce.model.ProduceReworkHalf;
-//import component.produce.model.ProduceReworkProduct;
-//import component.produce.model.ProduceTest;
-//import component.product.model.ProductInOrder;
-//import component.product.model.ProductInOrderSpace;
-//import component.product.model.ProductOutOrder;
-//import component.product.model.ProductOutOrderSpace;
-//import component.product.model.ProductSpace;
-//import component.product.model.ProductStock;
-//import component.product.model.ProductStockCheck;
-//import component.supply.model.Supply;
-//import component.supply.model.SupplyPurchaseOrder;
-//import component.supply.model.SupplyPurchasePlan;
-//import component.system.model.RemindMessage;
-//import component.system.model.RemindNoticeUser;
-//import component.system.model.SystemLog;
-//import component.system.model.SystemUser;
-//import component.system.model.UpdateInfo;
-//import okhttp3.MultipartBody;
-//import okhttp3.RequestBody;
-//import retrofit2.http.GET;
-//import retrofit2.http.Multipart;
-//import retrofit2.http.POST;
-//import retrofit2.http.Part;
-//import retrofit2.http.PartMap;
-//import retrofit2.http.Path;
-//import retrofit2.http.Query;
-//import rx.Observable;
-//
-//public interface ApiService {
-//    /*
-//     * 用户登录
-//     * */
-//    @GET("/login_commit")
-//    Observable<BaseModel<SystemUser>> login(
-//            @Query("username") String username,
-//            @Query("password") String password,
-//            @Query("token") String token
-//    );
+package retrofit;
+
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
+public interface ApiService {
+    /*
+     * 用户登录
+     * */
+    @GET("/login_commit")
+    Observable<BaseModel<SystemUser>> login(
+            @Query("username") String username,
+            @Query("password") String password
+    );
 //
 //    /*
 //     * 用户资料
@@ -1997,7 +1916,7 @@
 //            @Path("id") int id,
 //            @Query("token") String token
 //    );
-//}
+}
 //
 //
 //

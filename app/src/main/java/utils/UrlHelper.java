@@ -13,7 +13,7 @@ public class UrlHelper {
 //    public static final String URL_IP = "http://ims.newaite.com";//新爱特
 
     //   后台接口地址
-    public static final String URL_BASE = URL_IP + ":8092";
+    public static final String URL_BASE = "http://192.168.10.225/admin/myproject/common_service.asmx";
 
     //  显示图片的绝对路径
     public static final String URL_IMAGE = URL_IP + ":8090";

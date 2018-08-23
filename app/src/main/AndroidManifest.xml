@@ -16,7 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".UserLogin.MainActivity">
+        <activity android:name=".UserLogin.MainActivity"/>
+        <activity android:name=".UserLogin.ChangePWActivity">
+        </activity>
+        <activity android:name=".TasksToDo.TaskListActivity">
+        </activity>
+        <activity android:name=".TasksToDo.TaskDetailActivity">
         </activity>
     </application>
 
