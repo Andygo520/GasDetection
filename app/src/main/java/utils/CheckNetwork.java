@@ -6,8 +6,6 @@ import android.net.NetworkInfo;
 
 /**
  * 用于判断是不是联网状态
- *
- * @author Dzy
  */
 public class CheckNetwork {
 
@@ -16,17 +14,17 @@ public class CheckNetwork {
      */
     public static boolean isNetworkConnected(Context context) {
         try {
-            if(context!=null){
+            if (context != null) {
                 @SuppressWarnings("static-access")
                 ConnectivityManager cm = (ConnectivityManager) context
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo info = cm.getActiveNetworkInfo();
                 return info != null && info.isConnected();
-            }else{
+            } else {
                 /**如果context为空，就返回false，表示网络未连接*/
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

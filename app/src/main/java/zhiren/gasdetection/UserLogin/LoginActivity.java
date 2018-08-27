@@ -1,5 +1,6 @@
 package zhiren.gasdetection.UserLogin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -9,7 +10,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import utils.CheckNetwork;
-import utils.ToastUtil;
 import zhiren.gasdetection.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -31,12 +31,19 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.btnLogin)
     public void onViewClicked() {
        boolean connected = CheckNetwork.isNetworkConnected(this);
-       if (connected){
-             String phone=mEtPhone.getText().toString();
-             String password=mEtPW.getText().toString();
-
-       }else {
-           ToastUtil.showToast(this,"网络未连接");
-       }
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+//       if (connected){
+//             String phone=mEtPhone.getText().toString();
+//             String password=mEtPW.getText().toString();
+//             if (StringUtil.isEmpty(phone)||StringUtil.isEmpty(password)){
+//                 ToastUtil.showToast(this,"手机号或密码未输入");
+//             }else {
+//
+//             }
+//
+//       }else {
+//           ToastUtil.showToast(this,"网络未连接");
+//       }
     }
 }

@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/color_light_gray</item>
     </style>
 
     <!-- 自定义loading dialog -->
@@ -15,5 +16,10 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <!--给启动的activity设置一个背景主题，这样可以消除启动时候的白色背景-->
+    <style name="AppStartTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@mipmap/login_bg</item>
     </style>
 </resources>

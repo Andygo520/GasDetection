@@ -2,6 +2,9 @@
 <manifest package="zhiren.gasdetection"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,19 +12,53 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserLogin.LoginActivity">
+        <activity
+            android:name=".UserLogin.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppStartTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".UserLogin.MainActivity"/>
-        <activity android:name=".UserLogin.ChangePWActivity">
+        <activity
+            android:name=".UserLogin.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UserLogin.ChangePWActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TasksToDo.TaskListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TasksToDo.TaskDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TasksToDo.PurchaseListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TasksToDo.PayActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UserLogin.MyDataActivity">
         </activity>
-        <activity android:name=".TasksToDo.TaskListActivity">
+        <activity android:name=".UserLogin.AddCustomerActivity">
         </activity>
-        <activity android:name=".TasksToDo.TaskDetailActivity">
+        <activity android:name=".MaterialPick.MaterialPickActivity">
+        </activity>
+        <activity android:name=".MaterialPick.PickListActivity">
+        </activity>
+        <activity android:name=".MaterialPick.PickRecordActivity">
+        </activity>
+        <activity android:name=".MaterialPick.PickRecordDetailActivity">
+        </activity>
+        <activity android:name=".TrainingTest.TrainingTestActivity">
+        </activity>
+        <activity android:name=".TrainingTest.TestActivity">
+        </activity>
+        <activity android:name=".TrainingTest.TestAnalyzeActivity">
+        </activity>
+        <activity android:name=".TrainingTest.TestResultActivity">
         </activity>
     </application>
 

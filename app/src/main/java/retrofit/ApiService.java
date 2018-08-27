@@ -1,7 +1,9 @@
 package retrofit;
 
+import model.SystemUser;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 public interface ApiService {
     /*
