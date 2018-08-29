@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/color_white">
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全部街道"
+            android:textColor="@color/color_black"
+            android:textSize="13sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:drawableRight="@mipmap/pulldown_icon"
+            android:drawablePadding="10dp"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="全部小区"
+            android:textColor="@color/color_black"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/noresult_img"
+        android:layout_marginTop="85dp"
+        android:layout_gravity="center_horizontal"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_gray"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="15sp"
+        android:text="没有搜索到您想找的客户"
+        />
+</LinearLayout>

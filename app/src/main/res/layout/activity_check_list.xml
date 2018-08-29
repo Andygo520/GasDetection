@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:layout_width="64dp"
+            android:layout_height="23dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/blue_bg_radius_4"
+            android:gravity="center"
+            android:text="第一步"
+            android:textColor="@color/color_white"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="项目安检"
+            android:textColor="@color/color_blue"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/color_white">
+
+        <TextView
+            style="@style/text_wrap_15_dark_style"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/check_tube_icon"
+            android:drawablePadding="10dp"
+            android:text="引入管（支管）检查"
+            />
+
+        <TextView
+            android:id="@+id/tvTube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/check_detail_icon"
+            android:text="不合格"
+            android:textColor="@color/color_red"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_light_gray"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/color_white">
+
+        <TextView
+            style="@style/text_wrap_15_dark_style"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/check_meter_icon"
+            android:drawablePadding="10dp"
+            android:text="燃气表检查"
+            />
+
+        <TextView
+            android:id="@+id/tvMeter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/check_detail_icon"
+            android:text="不合格"
+            android:textColor="@color/color_red"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_light_gray"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/color_white">
+
+        <TextView
+            style="@style/text_wrap_15_dark_style"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/check_hearth_icon"
+            android:drawablePadding="10dp"
+            android:text="燃气灶检查"
+            />
+
+        <TextView
+            android:id="@+id/tvHearth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/check_detail_icon"
+            android:text="合格"
+            android:textColor="@color/color_green"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_light_gray"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/color_white">
+
+        <TextView
+            style="@style/text_wrap_15_dark_style"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/check_waterhearth_icon"
+            android:drawablePadding="10dp"
+            android:text="燃气热水器检查"
+            />
+
+        <TextView
+            android:id="@+id/tvWaterhearth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/check_detail_icon"
+            android:text="不合格"
+            android:textColor="@color/color_red"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
