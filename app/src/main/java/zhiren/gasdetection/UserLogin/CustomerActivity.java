@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import zhiren.gasdetection.R;
 
-public class AddCustomerActivity extends AppCompatActivity {
+public class CustomerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

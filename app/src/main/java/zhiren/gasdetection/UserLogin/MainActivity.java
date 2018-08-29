@@ -11,6 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import zhiren.gasdetection.InstallService.InstallServiceActivity;
 import zhiren.gasdetection.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,11 +73,13 @@ public class MainActivity extends AppCompatActivity {
         mTvCommunity.setText("微社区");
     }
 
-    @OnClick({R.id.iv_data, R.id.tvChangePW, R.id.llAnJian, R.id.llDianHuo, R.id.llYinCang, R.id.tvTest, R.id.tvGetMaterial, R.id.tvAddGuest})
+    @OnClick({R.id.iv_data, R.id.tvChangePW, R.id.llAnJian, R.id.llDianHuo,
+            R.id.tvCheck, R.id.tvReform, R.id.tvFire, R.id.tvInstall,
+            R.id.llYinCang, R.id.tvTest, R.id.tvGetMaterial, R.id.tvAddGuest})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_data:
-                startActivity(new Intent(this,MyDataActivity.class));
+                startActivity(new Intent(this, MyDataActivity.class));
                 break;
             case R.id.tvChangePW:
                 break;
@@ -86,12 +89,22 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.llYinCang:
                 break;
-            case R.id.tvTest:
-                break;
             case R.id.tvGetMaterial:
                 break;
             case R.id.tvAddGuest:
                 break;
+            case R.id.tvTest:
+                break;
+            case R.id.tvCheck:
+                break;
+            case R.id.tvReform:
+                break;
+            case R.id.tvFire:
+                break;
+            case R.id.tvInstall:
+                startActivity(new Intent(this, InstallServiceActivity.class));
+                break;
         }
     }
+
 }

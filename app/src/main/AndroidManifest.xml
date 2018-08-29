@@ -42,7 +42,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".UserLogin.MyDataActivity">
         </activity>
-        <activity android:name=".UserLogin.AddCustomerActivity">
+        <activity android:name=".UserLogin.CustomerActivity">
         </activity>
         <activity android:name=".MaterialPick.MaterialPickActivity">
         </activity>
@@ -59,6 +59,28 @@
         <activity android:name=".TrainingTest.TestAnalyzeActivity">
         </activity>
         <activity android:name=".TrainingTest.TestResultActivity">
+        </activity>
+        <activity android:name=".TasksToDo.NoResultActivity">
+        </activity>
+        <activity android:name=".InstallService.InstallServiceActivity">
+        </activity>
+        <activity android:name=".InstallService.InstallDetailActivity">
+        </activity>
+        <activity android:name=".AnJian.CheckListActivity">
+        </activity>
+        <activity android:name=".AnJian.CheckDetailActivity">
+        </activity>
+        <activity android:name=".AnJian.RiskRatingActivity">
+        </activity>
+        <activity android:name=".AnJian.PreachActivity">
+        </activity>
+        <activity android:name=".AnJian.ClientSignatureActivity">
+        </activity>
+        <activity android:name=".AnJian.ClientConfirmActivity">
+        </activity>
+        <activity android:name=".AnJian.RefuseActivity">
+        </activity>
+        <activity android:name=".AnJian.CheckResultActivity">
         </activity>
     </application>
 

@@ -22,4 +22,25 @@
     <style name="AppStartTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@mipmap/login_bg</item>
     </style>
+
+    <!--深灰包裹15样式文本-->
+    <style name="text_wrap_15_dark_style">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/color_dark_gray</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <!--按钮样式-->
+    <style name="button_style">
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/blue_bg_radius_4</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+    </style>
 </resources>

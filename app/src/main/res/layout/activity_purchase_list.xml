@@ -63,6 +63,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llInstrument"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -110,9 +111,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginTop="10dp"
                 android:background="@color/color_white"
+                android:orientation="vertical"
                 >
 
                 <LinearLayout
@@ -184,6 +185,7 @@
             android:textColor="@color/color_white"
             android:textSize="16sp"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -197,11 +199,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:drawableLeft="@mipmap/rectify_deleteunselect_icon"
+            android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:text="全选"
-            android:drawableLeft="@mipmap/rectify_deleteunselect_icon"
-            android:drawablePadding="8dp"
             android:textColor="@color/color_black"
             android:textSize="13sp"
             />
