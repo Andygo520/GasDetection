@@ -2,7 +2,10 @@ package zhiren.gasdetection.TasksToDo;
 
 import android.app.Dialog;
 import android.os.SystemClock;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import utils.ToastUtil;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
 
@@ -88,24 +92,33 @@ public class TaskDetailActivity extends BaseActivity {
     public void onBackPressed() {
 //        super.onBackPressed();
         final Dialog dialog = new Dialog(this);
-//        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nomal, null);
-//        TextView tvNo=dialogView.findViewById(R.id.tvNo);
-//        TextView tvYes=dialogView.findViewById(R.id.tvYes);
-//        tvNo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-//        tvYes.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//                ToastUtil.showToast(TaskDetailActivity.this,"录音文件已保存");
-//            }
-//        });
-        dialog.setContentView(R.layout.dialog_nomal);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nomal, null);
+        TextView tvNo=dialogView.findViewById(R.id.tvNo);
+        TextView tvYes=dialogView.findViewById(R.id.tvYes);
+        tvNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tvYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                ToastUtil.showToast(TaskDetailActivity.this,"录音文件已保存");
+            }
+        });
+
+        dialog.setContentView(dialogView);
+
+        WindowManager.LayoutParams lp     = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //注意要在Dialog show之后，再将宽高属性设置进去，才有效果
         dialog.show();
+        window.setAttributes(lp);
     }
 
     @Override
