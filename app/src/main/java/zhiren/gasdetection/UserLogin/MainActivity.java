@@ -1,20 +1,19 @@
 package zhiren.gasdetection.UserLogin;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import zhiren.gasdetection.InstallService.InstallServiceActivity;
+import zhiren.gasdetection.BaseActivity;
+import zhiren.gasdetection.InstallService.InstallDetailActivity;
 import zhiren.gasdetection.R;
+import zhiren.gasdetection.TasksToDo.TaskDetailActivity;
+import zhiren.gasdetection.TrainingTest.TrainingTestActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.iv_data)
     ImageView mIvData;
@@ -60,11 +59,12 @@ public class MainActivity extends AppCompatActivity {
     TextView mTvCommunity;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
+    @Override
+    protected void initData() {
         mTvCheck.setText("户内燃气\n安全检查");
         mTvReform.setText("户内隐患\n整改");
         mTvFire.setText("点火通气");
@@ -73,13 +73,19 @@ public class MainActivity extends AppCompatActivity {
         mTvCommunity.setText("微社区");
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.moveTaskToBack(true);
+    }
+
     @OnClick({R.id.iv_data, R.id.tvChangePW, R.id.llAnJian, R.id.llDianHuo,
             R.id.tvCheck, R.id.tvReform, R.id.tvFire, R.id.tvInstall,
             R.id.llYinCang, R.id.tvTest, R.id.tvGetMaterial, R.id.tvAddGuest})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_data:
-                startActivity(new Intent(this, MyDataActivity.class));
+                startActivity(MyDataActivity.class);
                 break;
             case R.id.tvChangePW:
                 break;
@@ -94,15 +100,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.tvAddGuest:
                 break;
             case R.id.tvTest:
+                startActivity(TrainingTestActivity.class);
                 break;
             case R.id.tvCheck:
+                startActivity(TaskDetailActivity.class);
                 break;
             case R.id.tvReform:
                 break;
             case R.id.tvFire:
                 break;
             case R.id.tvInstall:
-                startActivity(new Intent(this, InstallServiceActivity.class));
+                startActivity(InstallDetailActivity.class);
                 break;
         }
     }

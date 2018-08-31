@@ -268,7 +268,7 @@
                     />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -276,27 +276,42 @@
                 >
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/tvRecord"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:layout_weight="1"
                     android:drawableLeft="@mipmap/check_record_icon"
                     android:drawablePadding="8dp"
                     android:text="开始录音"
                     android:textColor="@color/color_black"
                     android:textSize="15sp"
                     />
+                <!--计时器-->
+                <Chronometer
+                    android:id="@+id/chronometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_toRightOf="@id/tvRecord"
+                    android:drawableLeft="@mipmap/recording_icon"
+                    android:drawablePadding="8dp"
+                    android:textColor="@color/color_blue"
+                    android:textSize="15sp"
+                    android:visibility="gone"
+                    />
 
                 <ImageView
                     android:id="@+id/ivRecord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="13dp"
                     android:src="@mipmap/record_start_icon"
                     />
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
         <Button
@@ -317,7 +332,7 @@
             android:layout_height="38dp"
             android:layout_gravity="bottom"
             android:layout_marginTop="10dp"
-            android:background="@drawable/green_bg_radius_4"
+            android:background="@drawable/yellow_bg_radius_4"
             android:gravity="center"
             android:text="到访不遇"
             android:textColor="#fff"
@@ -330,7 +345,7 @@
             android:layout_height="38dp"
             android:layout_gravity="bottom"
             android:layout_marginTop="10dp"
-            android:background="@drawable/green_bg_radius_4"
+            android:background="@drawable/yellow_bg_radius_4"
             android:gravity="center"
             android:text="拒绝入户"
             android:textColor="#fff"

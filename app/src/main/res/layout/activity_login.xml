@@ -53,6 +53,7 @@
             android:background="@drawable/gray_stroke_white_bg_4"
             android:drawableLeft="@mipmap/pw_icon"
             android:drawablePadding="17dp"
+            android:inputType="textPassword"
             android:gravity="center_vertical"
             android:hint="请输入密码"
             android:paddingLeft="17dp"

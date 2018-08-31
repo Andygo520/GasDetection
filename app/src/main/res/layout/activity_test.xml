@@ -16,8 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:orientation="vertical"
+            android:padding="15dp"
             >
 
             <Button
@@ -104,13 +104,12 @@
             android:textSize="15sp"
             />
 
-        <TextView
-            android:id="@+id/tvTime"
+        <Chronometer
+            android:id="@+id/timer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="14’26”"
             android:textColor="@color/color_blue"
             android:textSize="15sp"
             android:textStyle="bold"/>

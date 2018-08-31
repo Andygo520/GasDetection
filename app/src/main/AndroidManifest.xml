@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -40,48 +46,73 @@
         <activity
             android:name=".TasksToDo.PayActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".UserLogin.MyDataActivity">
-        </activity>
-        <activity android:name=".UserLogin.CustomerActivity">
-        </activity>
-        <activity android:name=".MaterialPick.MaterialPickActivity">
-        </activity>
-        <activity android:name=".MaterialPick.PickListActivity">
-        </activity>
-        <activity android:name=".MaterialPick.PickRecordActivity">
-        </activity>
-        <activity android:name=".MaterialPick.PickRecordDetailActivity">
-        </activity>
-        <activity android:name=".TrainingTest.TrainingTestActivity">
-        </activity>
-        <activity android:name=".TrainingTest.TestActivity">
-        </activity>
-        <activity android:name=".TrainingTest.TestAnalyzeActivity">
-        </activity>
-        <activity android:name=".TrainingTest.TestResultActivity">
-        </activity>
-        <activity android:name=".TasksToDo.NoResultActivity">
-        </activity>
-        <activity android:name=".InstallService.InstallServiceActivity">
-        </activity>
-        <activity android:name=".InstallService.InstallDetailActivity">
-        </activity>
-        <activity android:name=".AnJian.CheckListActivity">
-        </activity>
-        <activity android:name=".AnJian.CheckDetailActivity">
-        </activity>
-        <activity android:name=".AnJian.RiskRatingActivity">
-        </activity>
-        <activity android:name=".AnJian.PreachActivity">
-        </activity>
-        <activity android:name=".AnJian.ClientSignatureActivity">
-        </activity>
-        <activity android:name=".AnJian.ClientConfirmActivity">
-        </activity>
-        <activity android:name=".AnJian.RefuseActivity">
-        </activity>
-        <activity android:name=".AnJian.CheckResultActivity">
-        </activity>
+        <activity
+            android:name=".UserLogin.MyDataActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UserLogin.CustomerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MaterialPick.MaterialPickActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MaterialPick.PickListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MaterialPick.PickRecordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MaterialPick.PickRecordDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TrainingTest.TrainingTestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TrainingTest.TestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TrainingTest.TestAnalyzeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TrainingTest.TestResultActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TasksToDo.NoResultActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".InstallService.InstallServiceActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".InstallService.InstallDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnJian.CheckListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnJian.CheckDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnJian.RiskRatingActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnJian.PreachActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnJian.ClientSignatureActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnJian.ClientConfirmActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnJian.RefuseActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnJian.CheckResultActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="io.github.xudaojie.qrcodelib.CaptureActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>
