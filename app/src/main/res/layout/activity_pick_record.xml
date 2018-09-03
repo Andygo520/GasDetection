@@ -25,7 +25,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="本月领料记录"
-            android:textColor="@color/text_color_selector"
+            android:textColor="@color/white_gray_selector"
             android:textSize="15sp"
             />
 
@@ -38,7 +38,7 @@
             android:background="@drawable/bg_selector"
             android:gravity="center"
             android:text="今日领料记录"
-            android:textColor="@color/text_color_selector"
+            android:textColor="@color/white_gray_selector"
             android:textSize="15sp"
             />
     </RadioGroup>

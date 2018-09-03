@@ -1,5 +1,6 @@
 package zhiren.gasdetection.UserLogin;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -68,11 +69,17 @@ public class MyDataActivity extends BaseActivity {
     @Override
     protected void initData() {
         mText.setText("我的数据");
+        mTvRight.setVisibility(View.VISIBLE);
         mTvRight.setText("日期筛选");
     }
 
     @OnClick(R.id.iv_back)
     public void onViewClicked() {
         finish();
+    }
+
+    @OnClick(R.id.tvRight)
+    public void onChooseDate() {
+        startActivity(DateChooseActivity.class);
     }
 }

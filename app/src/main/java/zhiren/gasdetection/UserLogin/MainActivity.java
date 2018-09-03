@@ -10,6 +10,7 @@ import butterknife.OnClick;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.InstallService.InstallDetailActivity;
 import zhiren.gasdetection.R;
+import zhiren.gasdetection.TasksToDo.DropDownMenuActivity;
 import zhiren.gasdetection.TasksToDo.TaskDetailActivity;
 import zhiren.gasdetection.TrainingTest.TrainingTestActivity;
 
@@ -90,6 +91,7 @@ public class MainActivity extends BaseActivity {
             case R.id.tvChangePW:
                 break;
             case R.id.llAnJian:
+                startActivity(DropDownMenuActivity.class);
                 break;
             case R.id.llDianHuo:
                 break;

@@ -15,7 +15,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    packagingOptions{
+    packagingOptions {
 //      多个rxjava依赖包的过滤代码
         exclude 'META-INF/rxjava.properties'
     }
@@ -51,4 +51,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation project(':qrcodelib')
+    implementation 'com.github.dongjunkun:DropDownMenu:1.0.4'
+    api('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6') {
+        exclude group: 'com.android.support'
+    }
 }

@@ -85,7 +85,7 @@
             android:background="@drawable/bg_selector"
             android:button="@null"
             android:text="不整改安装"
-            android:textColor="@color/text_color_selector"
+            android:textColor="@color/white_gray_selector"
             android:textSize="14sp"
             android:visibility="gone"/>
     </LinearLayout>

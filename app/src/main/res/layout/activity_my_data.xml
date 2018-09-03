@@ -36,7 +36,7 @@
                     android:checked="true"
                     android:gravity="center"
                     android:text="本月数据"
-                    android:textColor="@color/text_color_selector"
+                    android:textColor="@color/white_gray_selector"
                     android:textSize="15sp"
                     />
 
@@ -49,7 +49,7 @@
                     android:button="@null"
                     android:gravity="center"
                     android:text="今日数据"
-                    android:textColor="@color/text_color_selector"
+                    android:textColor="@color/white_gray_selector"
                     android:textSize="15sp"
                     />
             </RadioGroup>

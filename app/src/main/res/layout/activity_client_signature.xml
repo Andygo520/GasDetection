@@ -79,7 +79,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="需要整改安装"
-            android:textColor="@color/text_color_selector"
+            android:textColor="@color/white_gray_selector"
             android:textSize="14sp"
             />
 
@@ -93,7 +93,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="自行整改安装"
-            android:textColor="@color/text_color_selector"
+            android:textColor="@color/white_gray_selector"
             android:textSize="14sp"/>
 
         <RadioButton
@@ -105,7 +105,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="不整改安装"
-            android:textColor="@color/text_color_selector"
+            android:textColor="@color/white_gray_selector"
             android:textSize="14sp"/>
     </RadioGroup>
 
