@@ -36,6 +36,7 @@ public class DayChooseFragment extends BaseFragment {
     private static final String YEAR_MONTH_DAY_FORMAT = "%s年%s月%s日";
     private int year, month, day;
     private boolean begin_date_flag = true;
+    private String begin, end;
 
     @Override
     protected int getLayoutId() {
@@ -66,15 +67,17 @@ public class DayChooseFragment extends BaseFragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rbBegin:
+                        end = String.format(YEAR_MONTH_DAY_FORMAT,
+                                datePicker.getSelectedYear(), datePicker.getSelectedMonth(), datePicker.getSelectedDay());
                         mRbBegin.setChecked(true);
-//                        mRbBegin.setText(String.format(YEAR_MONTH_DAY_FORMAT,
-//                                year, month + 1));
+                        mRbBegin.setText(begin);
                         begin_date_flag = true;
                         break;
                     case R.id.rbEnd:
+                        begin = String.format(YEAR_MONTH_DAY_FORMAT,
+                                datePicker.getSelectedYear(), datePicker.getSelectedMonth(), datePicker.getSelectedDay());
                         mRbEnd.setChecked(true);
-                        mRbEnd.setText(String.format(YEAR_MONTH_DAY_FORMAT,
-                                datePicker.getSelectedYear(), datePicker.getSelectedMonth(), datePicker.getSelectedDay()));
+                        mRbEnd.setText(end);
                         begin_date_flag = false;
                         break;
                     default:
