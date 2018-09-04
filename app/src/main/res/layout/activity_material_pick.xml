@@ -73,7 +73,7 @@
         android:layout_height="match_parent"
         android:gravity="bottom|center_horizontal"
         android:layout_marginBottom="7dp"
-        android:text="智慧燃气安检管理系统"
+        android:text="@string/application_name"
         android:textColor="#688999"
         android:textSize="11sp"
         />
