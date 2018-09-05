@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity {
             case R.id.tvGetMaterial:
                 break;
             case R.id.tvAddGuest:
+                startActivity(CustomerActivity.class);
                 break;
             case R.id.tvTest:
                 startActivity(TrainingTestActivity.class);

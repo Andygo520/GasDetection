@@ -1,7 +1,9 @@
 package zhiren.gasdetection.UserLogin;
 
 
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,9 +27,11 @@ public class MonthChooseFragment extends BaseFragment {
     ImageView mIvDelete;
     @BindView(R.id.wheelview_container)
     LinearLayout mWheelviewContainer;
+    @BindView(R.id.btnFinish)
+    Button mBtnFinish;
 
     private DatePicker datePicker;//日期选择
-    private static final String YEAR_MONTH_FORMAT = "%s年%s月";
+    private static final String YEAR_MONTH_FORMAT = "%s-%s";
     private int year, month;
 
     @Override
@@ -51,7 +55,7 @@ public class MonthChooseFragment extends BaseFragment {
         datePicker.setResetWhileWheel(false);
         //得到选择器视图，可内嵌到其他视图容器，不需要调用show方法
         mWheelviewContainer.addView(datePicker.getContentView());
-        mTv.setText(String.format(YEAR_MONTH_FORMAT, year, month + 1));
+        mTv.setText(String.format(YEAR_MONTH_FORMAT, datePicker.getSelectedYear(), datePicker.getSelectedMonth()));
         mTv.setTextColor(getResources().getColor(R.color.color_blue));
 
         datePicker.setOnWheelListener(new DatePicker.OnWheelListener() {
@@ -76,8 +80,16 @@ public class MonthChooseFragment extends BaseFragment {
     }
 
     @OnClick(R.id.ivDelete)
-    public void onViewClicked() {
+    public void onDeleteClicked() {
         mTv.setText("选择月份");
         mTv.setTextColor(getResources().getColor(R.color.color_light_black));
+    }
+
+    @OnClick(R.id.btnFinish)
+    public void onFinishClicked() {
+        Bundle bundle = new Bundle();
+        bundle.putString("date", mTv.getText().toString());
+        startActivity(MyDataActivity.class, bundle);
+        getActivity().finish();
     }
 }

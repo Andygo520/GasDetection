@@ -7,6 +7,75 @@
 
     <include layout="@layout/title_bar"/>
 
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/gray_stroke_white_bg_4"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbMonth"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="本月数据"
+            android:textColor="@color/white_gray_selector"
+            android:textSize="15sp"
+            />
+
+        <RadioButton
+            android:id="@+id/rbToday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="今日数据"
+            android:textColor="@color/white_gray_selector"
+            android:textSize="15sp"
+            />
+    </RadioGroup>
+    <!--所选日期布局-->
+    <LinearLayout
+        android:id="@+id/llDate"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/white_bg_radius_4"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+            android:text="所选日期"
+            android:textColor="@color/color_gray"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:paddingRight="15dp"
+            android:text="2018-06-15 2018-06-15"
+            android:textColor="@color/color_light_black"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,79 +84,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:orientation="vertical"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             >
-
-            <RadioGroup
-                android:id="@+id/rg"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/gray_stroke_white_bg_4"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rbMonth"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_selector"
-                    android:button="@null"
-                    android:checked="true"
-                    android:gravity="center"
-                    android:text="本月数据"
-                    android:textColor="@color/white_gray_selector"
-                    android:textSize="15sp"
-                    />
-
-                <RadioButton
-                    android:id="@+id/rbToday"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_selector"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="今日数据"
-                    android:textColor="@color/white_gray_selector"
-                    android:textSize="15sp"
-                    />
-            </RadioGroup>
-            <!--所选日期布局-->
-            <LinearLayout
-                android:id="@+id/llDate"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/white_bg_radius_4"
-                android:visibility="gone"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="20dp"
-                    android:text="所选日期"
-                    android:textColor="@color/color_gray"
-                    android:textSize="15sp"
-                    />
-
-                <TextView
-                    android:id="@+id/tvDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="2018-06-15  至  2018-06-04"
-                    android:textColor="@color/color_black"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/white_bg_radius_4"
                 android:orientation="vertical"
                 >
@@ -325,7 +330,7 @@
                                 android:background="@drawable/yellow_bg_radius_4"
                                 android:gravity="center"
                                 android:text="8"
-                                android:textColor="@color/color_orange"
+                                android:textColor="@color/color_blue"
                                 android:textSize="19sp"
                                 android:textStyle="bold"
                                 />
@@ -444,7 +449,7 @@
                                 android:background="@drawable/yellow_bg_radius_4"
                                 android:gravity="center"
                                 android:text="8"
-                                android:textColor="@color/color_orange"
+                                android:textColor="@color/color_blue"
                                 android:textSize="19sp"
                                 android:textStyle="bold"
                                 />

@@ -1,5 +1,6 @@
 package zhiren.gasdetection.UserLogin;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ public class DateChooseActivity extends BaseActivity {
     @Override
     protected void initData() {
         setSelection(0);//默认选中按月选择
+        mText.setText("请选择日期");
     }
 
     @Override
@@ -62,7 +64,7 @@ public class DateChooseActivity extends BaseActivity {
     }
 
     @OnClick(R.id.iv_back)
-    public void onViewClicked() {
+    public void onBackClicked() {
         finish();
     }
 

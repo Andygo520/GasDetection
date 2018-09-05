@@ -1,6 +1,7 @@
 package zhiren.gasdetection.UserLogin;
 
 
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,10 +34,10 @@ public class DayChooseFragment extends BaseFragment {
     LinearLayout mWheelviewContainer;
 
     private DatePicker datePicker;//日期选择
-    private static final String YEAR_MONTH_DAY_FORMAT = "%s年%s月%s日";
+    private static final String YEAR_MONTH_DAY_FORMAT = "%s-%s-%s";
     private int year, month, day;
     private boolean begin_date_flag = true;
-    private String begin, end;
+    private boolean first = true;//初次切换到结束日期的标志
 
     @Override
     protected int getLayoutId() {
@@ -45,9 +46,10 @@ public class DayChooseFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        year = Calendar.getInstance().get(Calendar.YEAR);
-        month = Calendar.getInstance().get(Calendar.MONTH);//月份为实际月份减1
-        day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);//月份为实际月份减1
+        day = calendar.get(Calendar.DAY_OF_MONTH);
         Log.d("yearmonth", "year:" + year + "month:" + month);
         datePicker = new DatePicker(getActivity(), DateTimePicker.YEAR_MONTH_DAY);
 //      设置选项偏移量，可用来要设置显示的条目数，范围为1-5，1显示3行、2显示5行、3显示7行……
@@ -58,27 +60,29 @@ public class DayChooseFragment extends BaseFragment {
         datePicker.setRangeEnd(year, month + 1, day);
         datePicker.setSelectedItem(year, month + 1, day);
         datePicker.setResetWhileWheel(false);
-        //得到选择器视图，可内嵌到其他视图容器，不需要调用show方法
+//      得到选择器视图，可内嵌到其他视图容器，不需要调用show方法
         mWheelviewContainer.addView(datePicker.getContentView());
-        mRbBegin.setText(String.format(YEAR_MONTH_DAY_FORMAT, year, month + 1, day));
+//      开始日期的默认值为当前日期
+        mRbBegin.setText(String.format(YEAR_MONTH_DAY_FORMAT,
+                datePicker.getSelectedYear(), datePicker.getSelectedMonth(), datePicker.getSelectedDay()));
 
         mRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rbBegin:
-                        end = String.format(YEAR_MONTH_DAY_FORMAT,
-                                datePicker.getSelectedYear(), datePicker.getSelectedMonth(), datePicker.getSelectedDay());
                         mRbBegin.setChecked(true);
-                        mRbBegin.setText(begin);
                         begin_date_flag = true;
                         break;
                     case R.id.rbEnd:
-                        begin = String.format(YEAR_MONTH_DAY_FORMAT,
-                                datePicker.getSelectedYear(), datePicker.getSelectedMonth(), datePicker.getSelectedDay());
                         mRbEnd.setChecked(true);
-                        mRbEnd.setText(end);
                         begin_date_flag = false;
+//                      初次切换到结束日期的时候显示开始日期
+                        if (first) {
+                            mRbEnd.setText(String.format(YEAR_MONTH_DAY_FORMAT,
+                                    datePicker.getSelectedYear(), datePicker.getSelectedMonth(), datePicker.getSelectedDay()));
+                            first = false;
+                        }
                         break;
                     default:
                         break;
@@ -123,10 +127,17 @@ public class DayChooseFragment extends BaseFragment {
     }
 
     @OnClick(R.id.ivDelete)
-    public void onViewClicked() {
+    public void onDeleteClicked() {
         mRbBegin.setText("开始日期");
         mRbEnd.setText("结束日期");
-        mRbBegin.setChecked(false);
-        mRbEnd.setChecked(false);
+    }
+
+    @OnClick(R.id.btnFinish)
+    public void onFinishClicked() {
+        Bundle bundle = new Bundle();
+        bundle.putString("beginDate", mRbBegin.getText().toString());
+        bundle.putString("endDate", mRbEnd.getText().toString());
+        startActivity(MyDataActivity.class, bundle);
+        getActivity().finish();
     }
 }

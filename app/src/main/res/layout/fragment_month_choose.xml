@@ -47,4 +47,11 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_gray"/>
+
+    <Button
+        android:id="@+id/btnFinish"
+        style="@style/button_style"
+        android:layout_margin="15dp"
+        android:text="完成"
+        />
 </LinearLayout>
