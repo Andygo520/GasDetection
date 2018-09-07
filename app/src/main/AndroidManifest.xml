@@ -11,6 +11,12 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
+    <!-- 管理蓝牙设备的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -77,9 +83,6 @@
             android:name=".TrainingTest.TestResultActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".TasksToDo.NoResultActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".InstallService.InstallServiceActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -114,7 +117,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".UserLogin.DateChooseActivity">
         </activity>
-        <activity android:name=".TasksToDo.DropDownMenuActivity">
+        <activity android:name=".TasksToDo.CategoryActivity">
         </activity>
     </application>
 

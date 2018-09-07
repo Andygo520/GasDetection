@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import zhiren.gasdetection.R;
 
+//  宣讲页面
 public class PreachActivity extends AppCompatActivity {
 
     @Override
