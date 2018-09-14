@@ -9,9 +9,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import model.Street;
+import retrofit.Api;
+import retrofit.RxHelper;
+import retrofit.RxSubscriber;
+import utils.ToastUtil;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
 import zhiren.gasdetection.adapter.LeftMenuAdapter;
@@ -41,6 +49,9 @@ public class CategoryActivity extends BaseActivity {
 
     private LeftMenuAdapter leftMenuAdapter;
     private RightMenuAdapter rightMenuAdapter;
+    private ArrayList<String> leftList = new ArrayList<>();
+    private ArrayList<String> rightList = new ArrayList<>();
+    private Map<String, List<String>> map = new HashMap<>();//存储街道与小区的对应关系
 
     @Override
     protected int getLayoutId() {
@@ -49,19 +60,10 @@ public class CategoryActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("复兴村");
-        arrayList.add("云飞路");
-        arrayList.add("云霞路");
-        arrayList.add("江汉路");
-        arrayList.add("江汉路");
-
-        leftMenuAdapter = new LeftMenuAdapter(this, arrayList);
-        rightMenuAdapter = new RightMenuAdapter(this, arrayList);
-        mLvLeft.setAdapter(leftMenuAdapter);
-        mLvRight.setAdapter(rightMenuAdapter);
         mText.setVisibility(View.GONE);
         mEtSearch.setVisibility(View.VISIBLE);
+        int id = getIntent().getExtras().getInt("id");
+        getStreetAndArea(id);
     }
 
     @Override
@@ -71,7 +73,9 @@ public class CategoryActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 leftMenuAdapter.setSelectItem(position);
                 leftMenuAdapter.notifyDataSetInvalidated();
-                rightMenuAdapter.setSelectItem(0);
+                rightList.clear();
+                rightList.addAll(map.get(leftList.get(position)));
+//                rightMenuAdapter.setSelectItem(0);
                 rightMenuAdapter.notifyDataSetInvalidated();
             }
         });
@@ -82,6 +86,40 @@ public class CategoryActivity extends BaseActivity {
                 rightMenuAdapter.notifyDataSetInvalidated();
             }
         });
+    }
+
+    public void getStreetAndArea(int id) {
+        Api.getDefault().getStreetAndArea(id)
+                .compose(RxHelper.<Street>handleResult())
+                .subscribe(new RxSubscriber<Street>(this) {
+                    @Override
+                    protected void _onNext(Street street) {
+//                        for (Street.StreetBean streetBean : street.getStreet()) {
+//                            String streetStr = streetBean.getStreet();
+//                            leftList.add(streetStr);
+//                            List<Street.StreetBean.AreaBean> areaBeans = streetBean.getArea();
+//                            List<String> areaList = new ArrayList<>();
+//                            for (Street.StreetBean.AreaBean areaBean : areaBeans) {
+//                                areaList.add(areaBean.getArea());
+//                            }
+//                            map.put(streetStr, areaList);
+//                        }
+//                        leftMenuAdapter = new LeftMenuAdapter(CategoryActivity.this, leftList);
+////                        rightMenuAdapter = new RightMenuAdapter(CategoryActivity.this, rightList);
+//                        mLvLeft.setAdapter(leftMenuAdapter);
+////                        mLvRight.setAdapter(rightMenuAdapter);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        ToastUtil.showToast(CategoryActivity.this, message);
+                    }
+
+                    @Override
+                    protected boolean showDialog() {
+                        return false;
+                    }
+                });
     }
 
     @OnClick(R.id.iv_back)

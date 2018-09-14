@@ -37,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="136dp"
         android:background="@color/color_white"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvUpPhoto"
@@ -48,6 +49,14 @@
             android:text="点击输入或上传签名"
             android:textColor="#adc1cd"
             android:textSize="13sp"
+            />
+
+        <ImageView
+            android:id="@+id/ivSignature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:visibility="gone"
             />
     </LinearLayout>
 

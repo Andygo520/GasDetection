@@ -1,21 +1,46 @@
 package zhiren.gasdetection.TasksToDo;
 
-import android.app.Dialog;
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.media.AudioAttributes;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
+import android.media.MediaRecorder;
+import android.os.Build;
+import android.os.Environment;
 import android.os.SystemClock;
-import android.view.LayoutInflater;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import utils.ToastUtil;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
+
+import static utils.GlobalConfig.AUDIO_FORMAT;
+import static utils.GlobalConfig.CHANNEL_CONFIG;
+import static utils.GlobalConfig.SAMPLE_RATE_INHZ;
+
 
 public class TaskDetailActivity extends BaseActivity {
 
@@ -53,72 +78,266 @@ public class TaskDetailActivity extends BaseActivity {
     TextView mTvRecord;
     @BindView(R.id.chronometer)
     Chronometer mChronometer;
+    @BindView(R.id.ivPlay)
+    ImageView mIvPlay;
 
+    /**
+     * 需要申请的运行时权限
+     */
+    private String[] permissions = new String[]{
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    /**
+     * 被用户拒绝的权限列表
+     */
+    private List<String> mPermissionList = new ArrayList<>();
     private int num = 0;//录音按钮点击的次数
+    private static final int MY_PERMISSIONS_REQUEST = 1001;
+    private boolean isRecording;
+    private AudioRecord audioRecord;
+    private AudioTrack audioTrack;
+    private FileInputStream fileInputStream;
+    private static final String TAG = "TaskDetailActivity";
 
-    @OnClick({R.id.iv_back, R.id.ivEdit, R.id.ivRecord, R.id.btnEnter, R.id.btnNotMeet, R.id.btnNotAllow})
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        // If request is cancelled, the result arrays are empty.
+        if (requestCode == MY_PERMISSIONS_REQUEST) {
+            for (int i = 0; i < grantResults.length; i++) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                    ToastUtil.showToast(this, "权限被用户禁止！");
+                }
+            }
+        }
+    }
+
+    @OnClick({R.id.iv_back, R.id.ivEdit, R.id.ivRecord, R.id.ivPlay, R.id.btnEnter, R.id.btnNotMeet, R.id.btnNotAllow})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
-            case R.id.ivEdit:
-                break;
-            case R.id.ivRecord:
-                num++;
-                if (num % 2 == 0) {
-                    mChronometer.setVisibility(View.GONE);
-                    mIvRecord.setImageResource(R.mipmap.record_start_icon);
-                    mTvRecord.setText("开始录音");
-                } else {
-                    mIvRecord.setImageResource(R.mipmap.record_stop_icon);
-                    mTvRecord.setText("录音中");
-                    mChronometer.setVisibility(View.VISIBLE);
-                    mChronometer.setBase(SystemClock.elapsedRealtime());//计时前时间清零
-                    mChronometer.start();
+//      录音中状态点击非结束录音按钮弹框提示
+        if (isRecording && view.getId() != R.id.ivRecord) {
+            new AlertDialog.Builder(this)
+                    .setMessage("请先停止录音。")
+                    .setPositiveButton("我知道了", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create()
+                    .show();
+        } else {
+            switch (view.getId()) {
+                case R.id.iv_back:
+                    if (num == 0) {
+                        finish();
+                    } else {
+                        new AlertDialog.Builder(this)
+                                .setMessage("当前安检未完成，是否退出？")
+                                .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                })
+                                .create().show();
+                    }
+                    break;
+                case R.id.ivEdit:
+                    break;
+                case R.id.ivPlay:
+                    playInModeStream();
+                    break;
+                case R.id.ivRecord:
+                    num++;
+                    if (num % 2 == 0) {
+                        mChronometer.stop();
+                        mChronometer.setVisibility(View.GONE);
+                        mIvRecord.setImageResource(R.mipmap.record_start_icon);
+                        mTvRecord.setText("开始录音");
+                        stopRecord();
+                    } else {
+                        mIvRecord.setImageResource(R.mipmap.record_stop_icon);
+                        mTvRecord.setText("录音中");
+                        mChronometer.setVisibility(View.VISIBLE);
+                        mChronometer.setBase(SystemClock.elapsedRealtime());//计时前时间清零
+                        mChronometer.start();
+                        startRecord();
+                    }
+                    break;
+                case R.id.btnEnter:
+                    break;
+                case R.id.btnNotMeet:
+                    break;
+                case R.id.btnNotAllow:
+                    break;
+            }
+
+        }
+    }
+
+
+    public void startRecord() {
+//      开始录音就隐藏播放按钮
+        mIvPlay.setVisibility(View.GONE);
+        final int minBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE_INHZ, CHANNEL_CONFIG, AUDIO_FORMAT);
+        audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE_INHZ,
+                CHANNEL_CONFIG, AUDIO_FORMAT, minBufferSize);
+
+        final byte data[] = new byte[minBufferSize];
+        final File file = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
+        if (!file.mkdirs()) {
+            Log.e(TAG, "Directory not created");
+        }
+        if (file.exists()) {
+            file.delete();
+        }
+
+        audioRecord.startRecording();
+        isRecording = true;
+
+        // TODO: 2018/3/10 pcm数据无法直接播放，保存为WAV格式。
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                FileOutputStream os = null;
+                try {
+                    os = new FileOutputStream(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
 
-                break;
-            case R.id.btnEnter:
-                break;
-            case R.id.btnNotMeet:
-                break;
-            case R.id.btnNotAllow:
-                break;
+                if (null != os) {
+                    while (isRecording) {
+                        int read = audioRecord.read(data, 0, minBufferSize);
+                        // 如果读取音频数据没有出现错误，就将数据写入到文件
+                        if (AudioRecord.ERROR_INVALID_OPERATION != read) {
+                            try {
+                                os.write(data);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    try {
+                        Log.i(TAG, "run: close file output stream !");
+                        os.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    public void stopRecord() {
+        isRecording = false;
+//      结束录音就显示播放按钮
+        mIvPlay.setVisibility(View.VISIBLE);
+//      释放资源
+        if (null != audioRecord) {
+            audioRecord.stop();
+            audioRecord.release();
+            audioRecord = null;
+        }
+    }
+
+    /**
+     * 播放，使用stream模式
+     */
+    private void playInModeStream() {
+        /*
+        * SAMPLE_RATE_INHZ 对应pcm音频的采样率
+        * channelConfig 对应pcm音频的声道
+        * AUDIO_FORMAT 对应pcm音频的格式
+        * */
+        int channelConfig = AudioFormat.CHANNEL_OUT_MONO;
+        final int minBufferSize = AudioTrack.getMinBufferSize(SAMPLE_RATE_INHZ, channelConfig, AUDIO_FORMAT);
+        audioTrack = new AudioTrack(
+                new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .build(),
+                new AudioFormat.Builder().setSampleRate(SAMPLE_RATE_INHZ)
+                        .setEncoding(AUDIO_FORMAT)
+                        .setChannelMask(channelConfig)
+                        .build(),
+                minBufferSize,
+                AudioTrack.MODE_STREAM,
+                AudioManager.AUDIO_SESSION_ID_GENERATE);
+        audioTrack.play();
+
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
+        try {
+            fileInputStream = new FileInputStream(file);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        byte[] tempBuffer = new byte[minBufferSize];
+                        while (fileInputStream.available() > 0) {
+                            int readCount = fileInputStream.read(tempBuffer);
+                            if (readCount == AudioTrack.ERROR_INVALID_OPERATION ||
+                                    readCount == AudioTrack.ERROR_BAD_VALUE) {
+                                continue;
+                            }
+                            if (readCount != 0 && readCount != -1) {
+                                audioTrack.write(tempBuffer, 0, readCount);
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-        final Dialog dialog = new Dialog(this);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nomal, null);
-        TextView tvNo=dialogView.findViewById(R.id.tvNo);
-        TextView tvYes=dialogView.findViewById(R.id.tvYes);
-        tvNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+        if (num == 0) {
+            finish();
+        } else {
+            if (isRecording) {
+                new AlertDialog.Builder(this)
+                        .setMessage("请先停止录音。")
+                        .setPositiveButton("我知道了", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create()
+                        .show();
+            } else {
+                new AlertDialog.Builder(this)
+                        .setMessage("当前安检未完成，是否退出？")
+                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .create().show();
             }
-        });
-        tvYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                ToastUtil.showToast(TaskDetailActivity.this,"录音文件已保存");
-            }
-        });
 
-        dialog.setContentView(dialogView);
-
-        WindowManager.LayoutParams lp     = new WindowManager.LayoutParams();
-        Window window = dialog.getWindow();
-        lp.copyFrom(window.getAttributes());
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        //注意要在Dialog show之后，再将宽高属性设置进去，才有效果
-        dialog.show();
-        window.setAttributes(lp);
+        }
     }
 
     @Override
@@ -128,6 +347,22 @@ public class TaskDetailActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        checkPermissions();
+    }
 
+    private void checkPermissions() {
+        // Marshmallow开始才用申请运行时权限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (ContextCompat.checkSelfPermission(this, permissions[i]) !=
+                        PackageManager.PERMISSION_GRANTED) {
+                    mPermissionList.add(permissions[i]);
+                }
+            }
+            if (!mPermissionList.isEmpty()) {
+                String[] permissions = mPermissionList.toArray(new String[mPermissionList.size()]);
+                ActivityCompat.requestPermissions(this, permissions, MY_PERMISSIONS_REQUEST);
+            }
+        }
     }
 }

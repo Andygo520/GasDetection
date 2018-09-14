@@ -1,13 +1,26 @@
 package zhiren.gasdetection.UserLogin;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
+import utils.UrlHelper;
 import zhiren.gasdetection.AnJian.CheckResultActivity;
+import zhiren.gasdetection.AnJian.ClientSignatureActivity;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.InstallService.InstallDetailActivity;
 import zhiren.gasdetection.R;
@@ -20,7 +33,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.iv_data)
     ImageView mIvData;
     @BindView(R.id.iv_photo)
-    ImageView mIvPhoto;
+    CircleImageView mIvPhoto;
     @BindView(R.id.tvChangePW)
     TextView mTvChangePW;
     @BindView(R.id.tvName)
@@ -60,6 +73,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.tvCommunity)
     TextView mTvCommunity;
 
+    private String tel;// 手机号作为账号
+    private int id;// 用户id
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -73,26 +89,78 @@ public class MainActivity extends BaseActivity {
         mTvInstall.setText("器具安装\n服务");
         mTvInspect.setText("巡线巡检");
         mTvCommunity.setText("微社区");
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getInt("id");
+        String realname = bundle.getString("realname");
+        String imgPath = bundle.getString("img");
+        String sex = bundle.getString("sex");
+        tel = bundle.getString("tel");
+        String staffno = bundle.getString("staffno");
+        String company = bundle.getString("company");
+        String introduce = bundle.getString("introduce");
+        mTvName.setText(realname);
+        mTvPhone.setText(tel);
+        mTvNum.setText(staffno);
+        mTvCompany.setText(company);
+        mTvIntro.setText(introduce);
+        if (sex.equals("男")) {
+            mIvSex.setImageResource(R.mipmap.male_icon);
+        } else {
+            mIvSex.setImageResource(R.mipmap.female_icon);
+        }
+
+        String path = UrlHelper.URL_IP + imgPath;
+        Glide.with(this).load(path).into(mIvPhoto);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        this.moveTaskToBack(true);
+        moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片、视频、音频选择结果回调
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+//                    adapter.setList(selectList);
+//                    adapter.notifyDataSetChanged();
+                    break;
+            }
+        }
     }
 
     @OnClick({R.id.iv_data, R.id.tvChangePW, R.id.llAnJian, R.id.llDianHuo,
-            R.id.tvCheck, R.id.tvReform, R.id.tvFire, R.id.tvInstall,
+            R.id.tvCheck, R.id.tvReform, R.id.tvFire, R.id.tvInstall, R.id.iv_photo,
             R.id.llYinCang, R.id.tvTest, R.id.tvGetMaterial, R.id.tvAddGuest})
     public void onViewClicked(View view) {
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.iv_data:
                 startActivity(MyDataActivity.class);
                 break;
+            case R.id.iv_photo:
+//              启动相册并拍照
+                PictureSelector.create(MainActivity.this)
+                        .openGallery(PictureMimeType.ofImage())
+                        .selectionMode(PictureConfig.SINGLE)
+                        .circleDimmedLayer(true)
+                        .forResult(PictureConfig.CHOOSE_REQUEST);
+                break;
             case R.id.tvChangePW:
+                bundle.putString("tel", tel);
+                startActivity(ChangePWActivity.class, bundle);
                 break;
             case R.id.llAnJian:
-                startActivity(CategoryActivity.class);
+                startActivity(TaskDetailActivity.class);
                 break;
             case R.id.llDianHuo:
                 break;
@@ -107,9 +175,11 @@ public class MainActivity extends BaseActivity {
                 startActivity(TrainingTestActivity.class);
                 break;
             case R.id.tvCheck:
-                startActivity(TaskDetailActivity.class);
+                bundle.putInt("id", id);
+                startActivity(CategoryActivity.class, bundle);
                 break;
             case R.id.tvReform:
+                startActivity(ClientSignatureActivity.class);
                 break;
             case R.id.tvFire:
                 startActivity(CheckResultActivity.class);

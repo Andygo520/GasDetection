@@ -1,5 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -49,14 +50,16 @@
                         android:textSize="18sp"
                         />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv_photo"
                         android:layout_width="67dp"
                         android:layout_height="67dp"
+                        android:src="@mipmap/photo_img"
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="33dp"
                         android:layout_marginTop="60dp"
-                        android:src="@mipmap/photo_img"/>
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/color_light_gray"/>
 
                     <TextView
                         android:id="@+id/tvChangePW"
@@ -393,6 +396,8 @@
                         android:drawableTop="@mipmap/home_check_icon"
                         android:gravity="center_horizontal"
                         android:paddingTop="20dp"
+                        android:text="户内燃气
+安全检查"
                         android:textColor="#2f637b"
                         android:textSize="12sp"/>
 
@@ -410,6 +415,8 @@
                         android:drawableTop="@mipmap/home_reform_icon"
                         android:gravity="center_horizontal"
                         android:paddingTop="20dp"
+                        android:text="户内隐患
+整改"
                         android:textColor="#2f637b"
                         android:textSize="12sp"/>
 
@@ -427,6 +434,7 @@
                         android:drawableTop="@mipmap/home_fire_icon"
                         android:gravity="center_horizontal"
                         android:paddingTop="20dp"
+                        android:text="点火通气"
                         android:textColor="#2f637b"
                         android:textSize="12sp"/>
                 </LinearLayout>
@@ -450,6 +458,8 @@
                         android:drawableTop="@mipmap/home_install_icon"
                         android:gravity="center_horizontal"
                         android:paddingTop="20dp"
+                        android:text="器具安装
+服务"
                         android:textColor="#2f637b"
                         android:textSize="12sp"/>
 
@@ -467,6 +477,7 @@
                         android:drawableTop="@mipmap/home_inspection_icon"
                         android:gravity="center_horizontal"
                         android:paddingTop="20dp"
+                        android:text="巡线巡检"
                         android:textColor="#2f637b"
                         android:textSize="12sp"/>
 
@@ -484,6 +495,7 @@
                         android:drawableTop="@mipmap/home_commu_icon"
                         android:gravity="center_horizontal"
                         android:paddingTop="20dp"
+                        android:text="微社区"
                         android:textColor="#2f637b"
                         android:textSize="12sp"/>
                 </LinearLayout>

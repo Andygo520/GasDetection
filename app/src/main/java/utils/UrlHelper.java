@@ -8,12 +8,12 @@ public class UrlHelper {
 //    public static final String project = "benxiao";
 //      public static final String project = "newaite";
 
-    public static final String URL_IP = "http://192.168.1.106";
+    public static final String URL_IP = "http://192.168.10.225";
 //    public static final String URL_IP = "http://benxiao.cnmar.com";
 //    public static final String URL_IP = "http://ims.newaite.com";//新爱特
 
     //   后台接口地址
-    public static final String URL_BASE = "http://192.168.10.225/admin/myproject/common_service.asmx";
+    public static final String URL_BASE = URL_IP + "/admin/myproject/Andriod_Webservice.asmx/";
 
     //  显示图片的绝对路径
     public static final String URL_IMAGE = URL_IP + ":8090";

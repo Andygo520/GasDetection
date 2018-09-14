@@ -1,5 +1,6 @@
 package retrofit;
 
+import model.Street;
 import model.SystemUser;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -9,11 +10,35 @@ public interface ApiService {
     /*
      * 用户登录
      * */
-    @GET("/login_commit")
+    @GET("IsLogin")
     Observable<BaseModel<SystemUser>> login(
-            @Query("username") String username,
-            @Query("password") String password
+            @Query("user_name") String username,
+            @Query("user_pwd") String password,
+            @Query("device_mac") String device_mac,
+            @Query("device_type") String device_type
     );
+
+
+    /*
+    * 修改密码
+    * */
+    @GET("UpdatePwd")
+    Observable<BaseModel<SystemUser>> updatePwd(
+            @Query("user_name") String username,
+            @Query("old_pwd") String old_pwd,
+            @Query("new_pwd") String new_pwd
+    );
+
+    /*
+  *  街道小区
+  * */
+    @GET("GetStreetAndArea")
+    Observable<BaseModel<Street>> getStreetAndArea(
+            @Query("assign_to") int id
+    );
+
+
+
 //
 //    /*
 //     * 用户资料

@@ -303,6 +303,17 @@
                     />
 
                 <ImageView
+                    android:id="@+id/ivPlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="13dp"
+                    android:layout_toLeftOf="@id/ivRecord"
+                    android:src="@mipmap/play_icon"
+                    android:visibility="gone"
+                    />
+
+                <ImageView
                     android:id="@+id/ivRecord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

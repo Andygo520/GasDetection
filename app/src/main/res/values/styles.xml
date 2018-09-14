@@ -38,8 +38,10 @@
         <item name="android:textSize">18sp</item>
         <item name="android:background">@drawable/blue_bg_radius_4</item>
         <item name="android:textColor">@color/color_white</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">44dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:layout_marginRight">15dp</item>
     </style>
@@ -55,4 +57,11 @@
         <item name="android:hint">请输入</item>
         <item name="android:layout_marginLeft">15dp</item>
     </style>
+
+    <style name="simpleDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 </resources>
