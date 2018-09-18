@@ -25,7 +25,7 @@ import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.InstallService.InstallDetailActivity;
 import zhiren.gasdetection.R;
 import zhiren.gasdetection.TasksToDo.CategoryActivity;
-import zhiren.gasdetection.TasksToDo.TaskDetailActivity;
+import zhiren.gasdetection.TasksToDo.TaskListActivity;
 import zhiren.gasdetection.TrainingTest.TrainingTestActivity;
 
 public class MainActivity extends BaseActivity {
@@ -160,7 +160,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(ChangePWActivity.class, bundle);
                 break;
             case R.id.llAnJian:
-                startActivity(TaskDetailActivity.class);
+                bundle.putInt("id", id);
+                startActivity(TaskListActivity.class,bundle);
                 break;
             case R.id.llDianHuo:
                 break;

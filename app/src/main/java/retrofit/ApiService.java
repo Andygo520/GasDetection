@@ -1,5 +1,6 @@
 package retrofit;
 
+import model.CheckTask;
 import model.Street;
 import model.SystemUser;
 import retrofit2.http.GET;
@@ -38,6 +39,18 @@ public interface ApiService {
     );
 
 
+    /*
+     *员工安检任务分页获取(默认一页10条)
+    * */
+    @GET("CheckTaskByPage")
+    Observable<BaseModel<CheckTask>> checkTaskList(
+            @Query("page") int page,
+            @Query("assign_to") int assign_to,
+            @Query("token") boolean token,
+            @Query("street") String street,
+            @Query("area") String area,
+            @Query("key") String key
+    );
 
 //
 //    /*

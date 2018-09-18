@@ -75,7 +75,7 @@ public class CategoryActivity extends BaseActivity {
                 leftMenuAdapter.notifyDataSetInvalidated();
                 rightList.clear();
                 rightList.addAll(map.get(leftList.get(position)));
-//                rightMenuAdapter.setSelectItem(0);
+                rightMenuAdapter.setSelectItem(0);
                 rightMenuAdapter.notifyDataSetInvalidated();
             }
         });
@@ -94,20 +94,21 @@ public class CategoryActivity extends BaseActivity {
                 .subscribe(new RxSubscriber<Street>(this) {
                     @Override
                     protected void _onNext(Street street) {
-//                        for (Street.StreetBean streetBean : street.getStreet()) {
-//                            String streetStr = streetBean.getStreet();
-//                            leftList.add(streetStr);
-//                            List<Street.StreetBean.AreaBean> areaBeans = streetBean.getArea();
-//                            List<String> areaList = new ArrayList<>();
-//                            for (Street.StreetBean.AreaBean areaBean : areaBeans) {
-//                                areaList.add(areaBean.getArea());
-//                            }
-//                            map.put(streetStr, areaList);
-//                        }
-//                        leftMenuAdapter = new LeftMenuAdapter(CategoryActivity.this, leftList);
-////                        rightMenuAdapter = new RightMenuAdapter(CategoryActivity.this, rightList);
-//                        mLvLeft.setAdapter(leftMenuAdapter);
-////                        mLvRight.setAdapter(rightMenuAdapter);
+                        for (Street.StreetBean streetBean : street.getStreet()) {
+                            String streetStr = streetBean.getStreet();
+                            leftList.add(streetStr);
+                            List<Street.StreetBean.AreaBean> areaBeans = streetBean.getArea();
+                            List<String> areaList = new ArrayList<>();
+                            for (Street.StreetBean.AreaBean areaBean : areaBeans) {
+                                areaList.add(areaBean.getArea());
+                            }
+                            map.put(streetStr, areaList);
+                        }
+                        leftMenuAdapter = new LeftMenuAdapter(CategoryActivity.this, leftList);
+                        rightList.addAll(map.get(leftList.get(0))) ;
+                        rightMenuAdapter = new RightMenuAdapter(CategoryActivity.this, rightList);
+                        mLvLeft.setAdapter(leftMenuAdapter);
+                        mLvRight.setAdapter(rightMenuAdapter);
                     }
 
                     @Override
