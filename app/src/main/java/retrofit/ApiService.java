@@ -1,9 +1,16 @@
 package retrofit;
 
+import model.BrandSpec;
+import model.CheckItems;
+import model.CheckItemsDetail;
+import model.CheckRecord;
 import model.CheckTask;
 import model.Street;
 import model.SystemUser;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -35,7 +42,8 @@ public interface ApiService {
   * */
     @GET("GetStreetAndArea")
     Observable<BaseModel<Street>> getStreetAndArea(
-            @Query("assign_to") int id
+            @Query("assign_to") int id,
+            @Query("token") boolean token
     );
 
 
@@ -51,6 +59,44 @@ public interface ApiService {
             @Query("area") String area,
             @Query("key") String key
     );
+
+    /*
+   * 用post方法增加一条安检记录
+   * */
+    @FormUrlEncoded
+    @POST("AddCheckData")
+    Observable<BaseModel<CheckRecord>> addCheckData(
+            @Field("task_id") int task_id,
+            @Field("check_datail") String check_datail,
+            @Field("base64string") String base64string,
+            @Field("fileName") String fileName
+    );
+
+    /*
+   *  员工安检项目
+   * */
+    @GET("CheckProjectByPage")
+    Observable<BaseModel<CheckItems>> checkProjectList(
+            @Query("assign_to") int id
+    );
+
+    /*
+   *  员工安检项目条目
+   * */
+    @GET("CheckProjectItemByPage")
+    Observable<BaseModel<CheckItemsDetail>> checkProjectItemList(
+            @Query("assign_to") int id,
+            @Query("project_id") int project_id
+    );
+
+    /*
+   *   员工下的产品品牌和型号
+   * */
+    @GET("GetBrandAndSpecification")
+    Observable<BaseModel<BrandSpec>> getBrandAndSpec(
+            @Query("assign_to") int id
+    );
+
 
 //
 //    /*

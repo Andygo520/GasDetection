@@ -33,7 +33,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import model.CheckRecord;
+import model.CheckTask;
+import retrofit.Api;
+import retrofit.RxHelper;
+import retrofit.RxSubscriber;
+import utils.FileToBase64Util;
 import utils.ToastUtil;
+import zhiren.gasdetection.AnJian.CheckListActivity;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
 
@@ -60,10 +67,10 @@ public class TaskDetailActivity extends BaseActivity {
     TextView mTvTel;
     @BindView(R.id.tvCity)
     TextView mTvCity;
-    @BindView(R.id.tv)
-    TextView mTv;
-    @BindView(R.id.tvCommu)
-    TextView mTvCommu;
+    @BindView(R.id.tvStreet)
+    TextView mTvStreet;
+    @BindView(R.id.tvArea)
+    TextView mTvArea;
     @BindView(R.id.tvFire)
     TextView mTvFire;
     @BindView(R.id.ivRecord)
@@ -99,7 +106,13 @@ public class TaskDetailActivity extends BaseActivity {
     private AudioTrack audioTrack;
     private FileInputStream fileInputStream;
     private static final String TAG = "TaskDetailActivity";
-
+    private static final String Not_Allow = "拒绝入户";
+    private static final String Not_Meet = "到访不遇";
+    private static final String Normal_Enter = "正常入户";
+    private int taskId;
+    private int flag;//区别点击的按钮
+    private String base64 = "";// 录音文件流
+    private String fileName = "";// 录音文件名
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -172,13 +185,18 @@ public class TaskDetailActivity extends BaseActivity {
                     }
                     break;
                 case R.id.btnEnter:
+                    flag = 1;
+                    addCheckRecord(Normal_Enter, base64, fileName);
                     break;
                 case R.id.btnNotMeet:
+                    flag = 2;
+                    addCheckRecord(Not_Meet, base64, fileName);
                     break;
                 case R.id.btnNotAllow:
+                    flag = 3;
+                    addCheckRecord(Not_Allow, base64, fileName);
                     break;
             }
-
         }
     }
 
@@ -230,6 +248,10 @@ public class TaskDetailActivity extends BaseActivity {
                     try {
                         Log.i(TAG, "run: close file output stream !");
                         os.close();
+                        base64 = FileToBase64Util.fileToBase64(file);
+                        fileName = file.getName();
+                        Log.d("base64", base64);
+                        Log.d("base64", "fileName" + fileName);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -347,7 +369,18 @@ public class TaskDetailActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        mText.setText("客户详情");
         checkPermissions();
+        CheckTask.TaskDataBean taskDataBean = (CheckTask.TaskDataBean) getIntent().getSerializableExtra("CheckTask");
+        mTvNum.setText(taskDataBean.getCustomer_no_show());
+        mTvName.setText(taskDataBean.getCustomer_name_show());
+        mTvTel.setText(taskDataBean.getCustomer_tel_show());
+        mTvCity.setText(taskDataBean.getCustomer_province_show() + taskDataBean.getCustomer_city_show());
+        mTvStreet.setText(taskDataBean.getCustomer_street_show());
+        mTvArea.setText(taskDataBean.getCustomer_address_show());
+        mTvFire.setText(taskDataBean.getCustomer_ventilate_status_show().equals("2") ? "未通气" : "已通气");
+        taskId = taskDataBean.getId();
+        Log.d("base64", taskId + "");
     }
 
     private void checkPermissions() {
@@ -364,5 +397,34 @@ public class TaskDetailActivity extends BaseActivity {
                 ActivityCompat.requestPermissions(this, permissions, MY_PERMISSIONS_REQUEST);
             }
         }
+    }
+
+    public void addCheckRecord(String checkDetail, String file64, String fileName) {
+        Api.getDefault().addCheckData(taskId, checkDetail, file64, fileName)
+                .compose(RxHelper.<CheckRecord>handleResult())
+                .subscribe(new RxSubscriber<CheckRecord>(this) {
+                    @Override
+                    protected void _onNext(CheckRecord checkRecord) {
+//                        Log.d("base64", checkRecord.getVoice());
+                        switch (flag) {
+                            case 1:
+                                startActivity(CheckListActivity.class);
+                                break;
+                            case 2:
+                                Log.d("base64", Not_Meet);
+                                break;
+                            case 3:
+                                Log.d("base64", Not_Allow);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        ToastUtil.showToast(TaskDetailActivity.this, message);
+                    }
+                });
     }
 }

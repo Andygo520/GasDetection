@@ -94,7 +94,7 @@
             android:name=".AnJian.CheckListActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".AnJian.CheckDetailActivity"
+            android:name=".AnJian.CheckItemDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".AnJian.RiskRatingActivity"

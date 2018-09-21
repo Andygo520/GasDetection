@@ -1,10 +1,23 @@
 package zhiren.gasdetection.TasksToDo;
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,6 +41,17 @@ public class TaskListActivity extends BaseActivity {
     EditText mEtSearch;
     @BindView(R.id.listView)
     ListView mListView;
+    @BindView(R.id.smartRefreshLayout)
+    SmartRefreshLayout mSmartRefreshLayout;
+
+    private int id;//用户ID
+    private boolean token;//true显示当前用户数据，false显示所有数据
+    private int page = 1;
+    private String leftStr, rightStr;
+    private int total;//列表总条数
+    private String key;//查找内容
+    private List<CheckTask.TaskDataBean> dataList = new ArrayList<>();
+    private TaskAdapter mTaskAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -38,8 +62,65 @@ public class TaskListActivity extends BaseActivity {
     protected void initData() {
         mText.setVisibility(View.GONE);
         mEtSearch.setVisibility(View.VISIBLE);
-        int id = getIntent().getExtras().getInt("id");
-        getList(1, id, true, "", "", "");
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getInt("id");
+        token = bundle.getBoolean("token");
+        leftStr = bundle.getString("left", "");
+        rightStr = bundle.getString("right", "");
+        getList(page, "");
+    }
+
+    @Override
+    protected void initListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CheckTask", dataList.get(position));
+                startActivity(TaskDetailActivity.class, bundle);
+            }
+        });
+        mEtSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    hideSoftInput();
+                    page = 1;
+                    key = mEtSearch.getText().toString();
+                    getList(page, key);
+                    return true;
+                }
+                return false;
+            }
+        });
+        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mSmartRefreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page = 1;
+                        key = mEtSearch.getText().toString();
+                        getList(page, key);
+                        mSmartRefreshLayout.finishRefresh();
+                    }
+                }, 800);
+            }
+        });
+        mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                mSmartRefreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page++;
+                        key = mEtSearch.getText().toString();
+                        getList(page, key);
+                        mSmartRefreshLayout.finishLoadMore();
+                    }
+                }, 800);
+            }
+        });
     }
 
     @OnClick(R.id.iv_back)
@@ -47,13 +128,29 @@ public class TaskListActivity extends BaseActivity {
         finish();
     }
 
-    public void getList(int page, int id, boolean token, String street, String area, String key) {
-        Api.getDefault().checkTaskList(page, id, token, street, area, key)
+    public void getList(final int page, String key) {
+        Api.getDefault().checkTaskList(page, id, token, leftStr, rightStr, key)
                 .compose(RxHelper.<CheckTask>handleResult())
                 .subscribe(new RxSubscriber<CheckTask>(this) {
                     @Override
                     protected void _onNext(CheckTask checkTask) {
-                        mListView.setAdapter(new TaskAdapter(TaskListActivity.this, checkTask.getTask_data(), R.layout.task_list_item));
+                        Log.d("totaltotal", "page " + page);
+                        total = checkTask.getCount();
+                        Log.d("totaltotal", total + "");
+                        if (total <= 10 * page) {
+                            ToastUtil.showToast(TaskListActivity.this, "数据加载完成");
+                            mSmartRefreshLayout.setEnableLoadMore(false);
+                        } else {
+                            mSmartRefreshLayout.setEnableLoadMore(true);
+                        }
+                        if (page == 1) {
+                            dataList = checkTask.getTask_data();
+                            mTaskAdapter = new TaskAdapter(TaskListActivity.this, dataList, R.layout.task_list_item);
+                            mListView.setAdapter(mTaskAdapter);
+                        } else {
+                            dataList.addAll(checkTask.getTask_data());
+                            mTaskAdapter.notifyDataSetHasChanged();
+                        }
                     }
 
                     @Override
@@ -67,4 +164,5 @@ public class TaskListActivity extends BaseActivity {
                     }
                 });
     }
+
 }

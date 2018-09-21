@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -29,7 +30,33 @@ public class CheckTask {
         this.task_data = task_data;
     }
 
-    public static class TaskDataBean {
+    public static class TaskDataBean implements Serializable {
+        /**
+         * book_time_show : null
+         * customer_name_show : 李民基
+         * customer_no_show : 198
+         * customer_tel_show : 18871581548
+         * customer_province_show : 湖北
+         * customer_city_show : 武汉
+         * customer_county_show : 汉阳
+         * customer_street_show : 1
+         * customer_area_show : 龙阳湖
+         * customer_building_show : 8
+         * customer_assign_to_show : 测试
+         * customer_address_show : 龙阳湖8
+         * customer_ventilate_status_show : 1
+         * id : 27
+         * govid : 373
+         * addtime : 2018-09-18T10:26:40.253
+         * assign_to_time : 2018-09-18T10:26:50.953
+         * customer_id : 70
+         * task_type : 1
+         * book_time : 1990-01-01T00:00:00
+         * assign_to : 40
+         * finish_status : null
+         * check_status : null
+         * check_house : 待安检
+         */
 
         private Object book_time_show;
         private String customer_name_show;
@@ -43,6 +70,7 @@ public class CheckTask {
         private String customer_building_show;
         private String customer_assign_to_show;
         private String customer_address_show;
+        private String customer_ventilate_status_show;
         private int id;
         private int govid;
         private String addtime;
@@ -52,7 +80,7 @@ public class CheckTask {
         private String book_time;
         private int assign_to;
         private Object finish_status;
-        private String check_status;
+        private Object check_status;
         private String check_house;
 
         public Object getBook_time_show() {
@@ -151,6 +179,14 @@ public class CheckTask {
             this.customer_address_show = customer_address_show;
         }
 
+        public String getCustomer_ventilate_status_show() {
+            return customer_ventilate_status_show;
+        }
+
+        public void setCustomer_ventilate_status_show(String customer_ventilate_status_show) {
+            this.customer_ventilate_status_show = customer_ventilate_status_show;
+        }
+
         public int getId() {
             return id;
         }
@@ -223,11 +259,11 @@ public class CheckTask {
             this.finish_status = finish_status;
         }
 
-        public String getCheck_status() {
+        public Object getCheck_status() {
             return check_status;
         }
 
-        public void setCheck_status(String check_status) {
+        public void setCheck_status(Object check_status) {
             this.check_status = check_status;
         }
 

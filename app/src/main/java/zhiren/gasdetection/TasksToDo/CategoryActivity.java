@@ -1,5 +1,7 @@
 package zhiren.gasdetection.TasksToDo;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import model.Street;
 import retrofit.Api;
 import retrofit.RxHelper;
 import retrofit.RxSubscriber;
+import utils.SPHelper;
 import utils.ToastUtil;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
@@ -52,6 +55,8 @@ public class CategoryActivity extends BaseActivity {
     private ArrayList<String> leftList = new ArrayList<>();
     private ArrayList<String> rightList = new ArrayList<>();
     private Map<String, List<String>> map = new HashMap<>();//存储街道与小区的对应关系
+    private int Id;//登录用户ID
+    private int flag;//区分从哪个页面到分类筛选页的标志
 
     @Override
     protected int getLayoutId() {
@@ -62,8 +67,14 @@ public class CategoryActivity extends BaseActivity {
     protected void initData() {
         mText.setVisibility(View.GONE);
         mEtSearch.setVisibility(View.VISIBLE);
-        int id = getIntent().getExtras().getInt("id");
-        getStreetAndArea(id);
+        Bundle bundle = getIntent().getExtras();
+        Id = SPHelper.getInt(this,"id");
+        flag = bundle.getInt("flag");
+        if (flag == 1) {
+            mTvLeft.setText("全部品牌");
+            mTvRight.setText("全部型号");
+        }
+        getStreetAndArea(Id);
     }
 
     @Override
@@ -84,12 +95,20 @@ public class CategoryActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 rightMenuAdapter.setSelectItem(position);
                 rightMenuAdapter.notifyDataSetInvalidated();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", Id);
+                bundle.putBoolean("token", false);
+                bundle.putString("left", leftList.get(leftMenuAdapter.getSelectItem()));
+                bundle.putString("right", rightList.get(rightMenuAdapter.getSelectItem()));
+                Log.d("CategoryActivity", leftList.get(leftMenuAdapter.getSelectItem()));
+                Log.d("CategoryActivity", rightList.get(rightMenuAdapter.getSelectItem()));
+                startActivity(TaskListActivity.class, bundle);
             }
         });
     }
 
     public void getStreetAndArea(int id) {
-        Api.getDefault().getStreetAndArea(id)
+        Api.getDefault().getStreetAndArea(id, false)
                 .compose(RxHelper.<Street>handleResult())
                 .subscribe(new RxSubscriber<Street>(this) {
                     @Override
@@ -105,7 +124,7 @@ public class CategoryActivity extends BaseActivity {
                             map.put(streetStr, areaList);
                         }
                         leftMenuAdapter = new LeftMenuAdapter(CategoryActivity.this, leftList);
-                        rightList.addAll(map.get(leftList.get(0))) ;
+                        rightList.addAll(map.get(leftList.get(0)));
                         rightMenuAdapter = new RightMenuAdapter(CategoryActivity.this, rightList);
                         mLvLeft.setAdapter(leftMenuAdapter);
                         mLvRight.setAdapter(rightMenuAdapter);

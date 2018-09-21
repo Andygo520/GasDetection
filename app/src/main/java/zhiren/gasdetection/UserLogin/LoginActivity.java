@@ -1,6 +1,7 @@
 package zhiren.gasdetection.UserLogin;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -13,6 +14,7 @@ import retrofit.Api;
 import retrofit.RxHelper;
 import retrofit.RxSubscriber;
 import utils.CheckNetwork;
+import utils.SPHelper;
 import utils.StringUtil;
 import utils.ToastUtil;
 import zhiren.gasdetection.BaseActivity;
@@ -34,6 +36,14 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+//      测试条件下，长按自动登录，正式删除
+        mBtnLogin.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                login("15678945614", "888888");
+                return true;
+            }
+        });
     }
 
     @OnClick(R.id.btnLogin)
@@ -63,6 +73,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     protected void _onNext(SystemUser systemUser) {
                         Bundle bundle = new Bundle();
+                        SPHelper.putInt(LoginActivity.this, "id", systemUser.getId());
                         bundle.putInt("id", systemUser.getId());
                         bundle.putString("realname", systemUser.getRealname());
                         bundle.putString("img", systemUser.getImg());
