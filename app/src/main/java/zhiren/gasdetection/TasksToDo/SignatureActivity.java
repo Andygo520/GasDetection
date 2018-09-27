@@ -115,7 +115,6 @@ public class SignatureActivity extends BaseActivity {
                 }
                 Intent intent = new Intent();
                 intent.putExtra("bitmap", bytes);
-                Log.d("signatureBitmap", signatureBitmap.toString());
                 this.setResult(RESULT_OK, intent);
                 SignatureActivity.this.finish();
                 break;

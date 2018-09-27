@@ -90,11 +90,38 @@ public interface ApiService {
     );
 
     /*
-   *   员工下的产品品牌和型号
+   *   产品品牌和型号
    * */
     @GET("GetBrandAndSpecification")
     Observable<BaseModel<BrandSpec>> getBrandAndSpec(
-            @Query("assign_to") int id
+            @Query("assign_to") int id,
+            @Query("type") String type,
+            @Query("type1") String type1
+    );
+
+
+    /*
+  * 用post方法提交检查条目
+  * */
+    @FormUrlEncoded
+    @POST("CheckItemCommit")
+    Observable<BaseModel<CheckRecord>> checkItemCommit(
+            @Field("check_data_id") int check_data_id,
+            @Field("project_id") int project_id,
+            @Field("brand") String brand,
+            @Field("specification") String specification,
+            @Field("use_year") float use_year,
+            @Field("size") String size,
+            @Field("unqualified") String unqualified,
+            @Field("remark") String remark,
+            @Field("video") String video,
+            @Field("video_name") String video_name,
+            @Field("picture1") String picture1,
+            @Field("picture1_name") String picture1_name,
+            @Field("picture2") String picture2,
+            @Field("picture2_name") String picture2_name,
+            @Field("picture3") String picture3,
+            @Field("picture3_name") String picture3_name
     );
 
 

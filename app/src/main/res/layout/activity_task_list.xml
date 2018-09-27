@@ -35,4 +35,17 @@
             android:layout_height="wrap_content"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+    <TextView
+        android:id="@+id/tvNoFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="85dp"
+        android:drawablePadding="10dp"
+        android:drawableTop="@mipmap/noresult_img"
+        android:text="没有搜索到您想找的内容"
+        android:textColor="@color/color_gray"
+        android:textSize="15sp"
+        android:visibility="gone"
+        />
 </LinearLayout>

@@ -1,5 +1,6 @@
 package zhiren.gasdetection.TasksToDo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import model.BrandSpec;
 import model.Street;
 import retrofit.Api;
 import retrofit.RxHelper;
@@ -41,9 +43,9 @@ public class CategoryActivity extends BaseActivity {
     ListView mLvRight;
     @BindView(R.id.etSearch)
     EditText mEtSearch;
-    @BindView(R.id.tvLeft)
+    @BindView(R.id.textLeft)
     TextView mTvLeft;
-    @BindView(R.id.tvRight)
+    @BindView(R.id.textRight)
     TextView mTvRight;
     @BindView(R.id.llContainer)
     LinearLayout mLlContainer;
@@ -65,16 +67,21 @@ public class CategoryActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mText.setVisibility(View.GONE);
-        mEtSearch.setVisibility(View.VISIBLE);
-        Bundle bundle = getIntent().getExtras();
-        Id = SPHelper.getInt(this,"id");
-        flag = bundle.getInt("flag");
+        Intent intent = getIntent();
+        Id = SPHelper.getInt(this, "id");
+        flag = intent.getIntExtra("flag", 0);
         if (flag == 1) {
+            mText.setText("选择品牌型号");
             mTvLeft.setText("全部品牌");
             mTvRight.setText("全部型号");
+            String type = intent.getStringExtra("type");
+            String type1 = intent.getStringExtra("type1");
+            getBrandSpec(type, type1);
+        } else {
+            mText.setVisibility(View.GONE);
+            mEtSearch.setVisibility(View.VISIBLE);
+            getStreetAndArea(Id);
         }
-        getStreetAndArea(Id);
     }
 
     @Override
@@ -95,14 +102,22 @@ public class CategoryActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 rightMenuAdapter.setSelectItem(position);
                 rightMenuAdapter.notifyDataSetInvalidated();
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", Id);
-                bundle.putBoolean("token", false);
-                bundle.putString("left", leftList.get(leftMenuAdapter.getSelectItem()));
-                bundle.putString("right", rightList.get(rightMenuAdapter.getSelectItem()));
-                Log.d("CategoryActivity", leftList.get(leftMenuAdapter.getSelectItem()));
-                Log.d("CategoryActivity", rightList.get(rightMenuAdapter.getSelectItem()));
-                startActivity(TaskListActivity.class, bundle);
+                if (flag == 1) {
+                    Intent intent = new Intent();
+                    intent.putExtra("brand", leftList.get(leftMenuAdapter.getSelectItem()));
+                    intent.putExtra("spec", rightList.get(rightMenuAdapter.getSelectItem()));
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", Id);
+                    bundle.putBoolean("token", false);
+                    bundle.putString("left", leftList.get(leftMenuAdapter.getSelectItem()));
+                    bundle.putString("right", rightList.get(rightMenuAdapter.getSelectItem()));
+                    Log.d("CategoryActivity", leftList.get(leftMenuAdapter.getSelectItem()));
+                    Log.d("CategoryActivity", rightList.get(rightMenuAdapter.getSelectItem()));
+                    startActivity(TaskListActivity.class, bundle);
+                }
             }
         });
     }
@@ -141,6 +156,47 @@ public class CategoryActivity extends BaseActivity {
                     }
                 });
     }
+
+    public void getBrandSpec(String type, String type1) {
+        Api.getDefault().getBrandAndSpec(Id, type, type1)
+                .compose(RxHelper.<BrandSpec>handleResult())
+                .subscribe(new RxSubscriber<BrandSpec>(this) {
+                    @Override
+                    protected void _onNext(BrandSpec brandSpec) {
+                        if (brandSpec.getCount() == 0) {
+                            mLlContainer.setVisibility(View.GONE);
+                            mTvNoFound.setVisibility(View.VISIBLE);
+                        } else {
+                            for (BrandSpec.Brand brand : brandSpec.getBrand()) {
+                                leftList.add(brand.getBrand());
+                                List<BrandSpec.Brand.Specification> specificationList = brand.getSpecification();
+                                List<String> list = new ArrayList<>();
+                                for (BrandSpec.Brand.Specification specification : specificationList) {
+                                    list.add(specification.getSpecification());
+                                }
+                                map.put(brand.getBrand(), list);
+                            }
+                            leftMenuAdapter = new LeftMenuAdapter(CategoryActivity.this, leftList);
+                            rightList.addAll(map.get(leftList.get(0)));
+                            rightMenuAdapter = new RightMenuAdapter(CategoryActivity.this, rightList);
+                            mLvLeft.setAdapter(leftMenuAdapter);
+                            mLvRight.setAdapter(rightMenuAdapter);
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        ToastUtil.showToast(CategoryActivity.this, message);
+                    }
+
+                    @Override
+                    protected boolean showDialog() {
+                        return false;
+                    }
+                });
+
+    }
+
 
     @OnClick(R.id.iv_back)
     public void onViewClicked() {

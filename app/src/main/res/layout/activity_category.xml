@@ -18,7 +18,7 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/tvLeft"
+                android:id="@+id/textLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|left"
@@ -32,7 +32,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvRight"
+            android:id="@+id/textRight"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
         android:layout_marginTop="85dp"
         android:drawablePadding="10dp"
         android:drawableTop="@mipmap/noresult_img"
-        android:text="没有搜索到您想找的客户"
+        android:text="没有搜索到您想找的内容"
         android:textColor="@color/color_gray"
         android:textSize="15sp"
         android:visibility="gone"

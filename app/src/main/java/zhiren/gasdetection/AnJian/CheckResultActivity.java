@@ -112,7 +112,7 @@ public class CheckResultActivity extends BaseActivity {
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
-    BottomSheetDialog dialog;
+    private BottomSheetDialog dialog;
 
     @Override
     protected int getLayoutId() {

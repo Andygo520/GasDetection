@@ -11,6 +11,7 @@ import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.MediaRecorder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -405,10 +406,11 @@ public class TaskDetailActivity extends BaseActivity {
                 .subscribe(new RxSubscriber<CheckRecord>(this) {
                     @Override
                     protected void _onNext(CheckRecord checkRecord) {
-//                        Log.d("base64", checkRecord.getVoice());
                         switch (flag) {
                             case 1:
-                                startActivity(CheckListActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("check_data_id", checkRecord.getId());
+                                startActivity(CheckListActivity.class, bundle);
                                 break;
                             case 2:
                                 Log.d("base64", Not_Meet);

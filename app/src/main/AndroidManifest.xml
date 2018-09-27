@@ -117,12 +117,15 @@
         <activity
             android:name="io.github.xudaojie.qrcodelib.CaptureActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".UserLogin.DateChooseActivity">
-        </activity>
-        <activity android:name=".TasksToDo.CategoryActivity">
-        </activity>
-        <activity android:name=".TasksToDo.SignatureActivity">
-        </activity>
+        <activity
+            android:name=".UserLogin.DateChooseActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TasksToDo.CategoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TasksToDo.SignatureActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

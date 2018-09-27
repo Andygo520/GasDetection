@@ -32,6 +32,61 @@
                 android:textSize="13sp"/>
 
             <LinearLayout
+                android:id="@+id/llType"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/color_white"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvType"
+                    style="@style/text_wrap_15_dark_style"
+                    android:layout_marginRight="15dp"
+                    android:text="类型"
+                    />
+
+                <RadioGroup
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/rb2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"/>
+
+                    <RadioButton
+                        android:id="@+id/rb3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_light_gray"
+                />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@color/color_white">
@@ -50,6 +105,7 @@
                     android:layout_marginRight="15dp"
                     android:drawablePadding="8dp"
                     android:drawableRight="@mipmap/check_detail_icon"
+                    android:minWidth="40dp"
                     android:textColor="@color/color_light_black"
                     android:textSize="15sp"
                     />
@@ -80,6 +136,7 @@
                     android:layout_marginRight="15dp"
                     android:drawablePadding="8dp"
                     android:drawableRight="@mipmap/check_detail_icon"
+                    android:minWidth="40dp"
                     android:textColor="@color/color_light_black"
                     android:textSize="15sp"
                     />
@@ -110,6 +167,7 @@
                     android:layout_marginRight="15dp"
                     android:drawablePadding="8dp"
                     android:drawableRight="@mipmap/check_detail_icon"
+                    android:minWidth="40dp"
                     android:textColor="@color/color_light_black"
                     android:textSize="15sp"
                     />
@@ -133,7 +191,7 @@
                     />
 
                 <EditText
-                    android:id="@+id/tvWidth"
+                    android:id="@+id/etWidth"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
@@ -144,6 +202,7 @@
                     android:background="@drawable/gray_stroke_white_bg_4"
                     android:gravity="center"
                     android:hint="宽"
+                    android:inputType="number"
                     android:textColor="@color/color_light_black"
                     android:textSize="15sp"
                     />
@@ -151,11 +210,11 @@
                 <TextView
                     style="@style/text_wrap_15_dark_style"
                     android:layout_marginLeft="0dp"
-                    android:text="X"
+                    android:text="*"
                     />
 
                 <EditText
-                    android:id="@+id/tvHeight"
+                    android:id="@+id/etHeight"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
@@ -166,6 +225,7 @@
                     android:background="@drawable/gray_stroke_white_bg_4"
                     android:gravity="center"
                     android:hint="高"
+                    android:inputType="number"
                     android:textColor="@color/color_light_black"
                     android:textSize="15sp"
                     />
@@ -233,7 +293,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:background="@color/color_white"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -249,13 +309,23 @@
                     android:textSize="13sp"
                     />
 
-                <ImageView
-                    android:id="@+id/ivVedio"
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerVedio"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerInside"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:overScrollMode="never"
                     android:visibility="gone"
                     />
+                <!--<ImageView-->
+                <!--android:id="@+id/ivVedio"-->
+                <!--android:layout_width="76dp"-->
+                <!--android:layout_height="76dp"-->
+                <!--android:scaleType="centerInside"-->
+                <!--android:src="@mipmap/check_addphoto_icon"-->
+                <!--android:visibility="gone"-->
+                <!--/>-->
             </LinearLayout>
 
 
@@ -274,7 +344,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:background="@color/color_white"
                 android:gravity="center">
 
@@ -287,6 +357,16 @@
                     android:text="点击拍摄或上传照片"
                     android:textColor="#adc1cd"
                     android:textSize="13sp"
+                    />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerImages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
                     />
             </LinearLayout>
 

@@ -1,6 +1,6 @@
 package zhiren.gasdetection.AnJian;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,7 +24,7 @@ import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
 import zhiren.gasdetection.adapter.CheckItemsAdapter;
 
-// 安检单列表页面
+// 安检项目列表页面
 public class CheckListActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
@@ -37,6 +37,8 @@ public class CheckListActivity extends BaseActivity {
     Button mBtn;
 
     private List<CheckItems.ProjectData> dataList = new ArrayList<>();
+    private CheckItemsAdapter mItemsAdapter;
+    private int posi;//列表点击的条目
 
     @Override
     protected int getLayoutId() {
@@ -46,7 +48,27 @@ public class CheckListActivity extends BaseActivity {
     @Override
     protected void initData() {
         mText.setText("安检单列表");
+        mItemsAdapter = new CheckItemsAdapter(CheckListActivity.this, dataList, R.layout.check_items_item);
+        mList.setAdapter(mItemsAdapter);
         getList();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+            Log.d("unqualified12", "posi:" + posi);
+            String unqualified = data.getStringExtra("unqualified");
+            Log.d("unqualified12", "unqualified:" + unqualified.length());
+            if (unqualified.length() == 0) {
+                dataList.get(posi).setResult("合格");
+                mItemsAdapter.setPass(true);
+            } else {
+                dataList.get(posi).setResult("不合格");
+                mItemsAdapter.setPass(false);
+            }
+            mItemsAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -54,13 +76,19 @@ public class CheckListActivity extends BaseActivity {
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                posi = position;
+                Intent intent = new Intent(CheckListActivity.this, CheckItemDetailActivity.class);
+                int check_data_id = getIntent().getExtras().getInt("check_data_id");
                 int itemId = dataList.get(position).getId();
                 String itemName = dataList.get(position).getName();
+                String itemType = dataList.get(position).getType();
                 Log.d("itemId", itemId + "");
-                Bundle bundle = new Bundle();
-                bundle.putInt("itemId", itemId);
-                bundle.putString("itemName", itemName);
-                startActivity(CheckItemDetailActivity.class, bundle);
+                Log.d("itemId", itemType);
+                intent.putExtra("itemId", itemId);
+                intent.putExtra("check_data_id", check_data_id);
+                intent.putExtra("itemName", itemName);
+                intent.putExtra("itemType", itemType);
+                startActivityForResult(intent, 0);
             }
         });
     }
@@ -83,8 +111,8 @@ public class CheckListActivity extends BaseActivity {
                 .subscribe(new RxSubscriber<CheckItems>(this) {
                     @Override
                     protected void _onNext(CheckItems checkItems) {
-                        dataList = checkItems.getProject_data();
-                        mList.setAdapter(new CheckItemsAdapter(CheckListActivity.this, dataList, R.layout.check_items_item));
+                        dataList.addAll(checkItems.getProject_data());
+                        mItemsAdapter.notifyDataSetChanged();
                     }
 
                     @Override

@@ -43,6 +43,8 @@ public class TaskListActivity extends BaseActivity {
     ListView mListView;
     @BindView(R.id.smartRefreshLayout)
     SmartRefreshLayout mSmartRefreshLayout;
+    @BindView(R.id.tvNoFound)
+    TextView mTvNoFound;
 
     private int id;//用户ID
     private boolean token;//true显示当前用户数据，false显示所有数据
@@ -134,22 +136,30 @@ public class TaskListActivity extends BaseActivity {
                 .subscribe(new RxSubscriber<CheckTask>(this) {
                     @Override
                     protected void _onNext(CheckTask checkTask) {
-                        Log.d("totaltotal", "page " + page);
-                        total = checkTask.getCount();
-                        Log.d("totaltotal", total + "");
-                        if (total <= 10 * page) {
-                            ToastUtil.showToast(TaskListActivity.this, "数据加载完成");
-                            mSmartRefreshLayout.setEnableLoadMore(false);
+                        if (checkTask.getCount() == 0) {
+                            mTvNoFound.setVisibility(View.VISIBLE);
+                            mSmartRefreshLayout.setVisibility(View.GONE);
                         } else {
-                            mSmartRefreshLayout.setEnableLoadMore(true);
-                        }
-                        if (page == 1) {
-                            dataList = checkTask.getTask_data();
-                            mTaskAdapter = new TaskAdapter(TaskListActivity.this, dataList, R.layout.task_list_item);
-                            mListView.setAdapter(mTaskAdapter);
-                        } else {
-                            dataList.addAll(checkTask.getTask_data());
-                            mTaskAdapter.notifyDataSetHasChanged();
+                            mTvNoFound.setVisibility(View.GONE);
+                            mSmartRefreshLayout.setVisibility(View.VISIBLE);
+                            Log.d("totaltotal", "page " + page);
+                            total = checkTask.getCount();
+                            if (total <= 10 * page) {
+                                mSmartRefreshLayout.setEnableLoadMore(false);
+                                if (page > 1) {
+                                    ToastUtil.showToast(TaskListActivity.this, "数据加载完成");
+                                }
+                            } else {
+                                mSmartRefreshLayout.setEnableLoadMore(true);
+                            }
+                            if (page == 1) {
+                                dataList = checkTask.getTask_data();
+                                mTaskAdapter = new TaskAdapter(TaskListActivity.this, dataList, R.layout.task_list_item);
+                                mListView.setAdapter(mTaskAdapter);
+                            } else {
+                                dataList.addAll(checkTask.getTask_data());
+                                mTaskAdapter.notifyDataSetHasChanged();
+                            }
                         }
                     }
 
@@ -164,5 +174,4 @@ public class TaskListActivity extends BaseActivity {
                     }
                 });
     }
-
 }
