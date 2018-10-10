@@ -43,7 +43,7 @@
             android:name=".UserLogin.ChangePWActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".TasksToDo.TaskListActivity"
+            android:name=".TasksToDo.CheckTaskListActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".TasksToDo.TaskDetailActivity"
@@ -125,6 +125,12 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".TasksToDo.SignatureActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnJian.HistoryDataActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TasksToDo.VentilateTaskListActivity"
             android:screenOrientation="portrait"/>
     </application>
 

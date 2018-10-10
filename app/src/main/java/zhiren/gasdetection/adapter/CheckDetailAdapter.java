@@ -35,7 +35,7 @@ public class CheckDetailAdapter extends SuperAdapter<CheckItemsDetail.ProjectDat
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
-                    unqualified = item.getId() + ",";
+                    unqualified += item.getId() + ",";
                 }
             }
         });

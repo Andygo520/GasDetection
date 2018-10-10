@@ -18,7 +18,6 @@ import zhiren.gasdetection.R;
  */
 
 public class CheckItemsAdapter extends SuperAdapter<CheckItems.ProjectData> {
-    boolean pass = false;//合格与否
 
     public CheckItemsAdapter(Context context, List<CheckItems.ProjectData> items, int layoutResId) {
         super(context, items, layoutResId);
@@ -29,12 +28,7 @@ public class CheckItemsAdapter extends SuperAdapter<CheckItems.ProjectData> {
         holder.setText(R.id.tvItem, item.getProject_no() + "  " + item.getName());
         holder.setText(R.id.tvResult, item.getResult());
         TextView tvResult = holder.findViewById(R.id.tvResult);
-        tvResult.setTextColor(pass ? tvResult.getContext().getResources().getColor(R.color.color_green)
+        tvResult.setTextColor(tvResult.getText().toString().equals("合格") ? tvResult.getContext().getResources().getColor(R.color.color_green)
                 : tvResult.getContext().getResources().getColor(R.color.color_red));
     }
-
-    public void setPass(boolean bool) {
-        this.pass = bool;
-    }
-
 }

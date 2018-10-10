@@ -42,6 +42,8 @@ import retrofit.RxSubscriber;
 import utils.FileToBase64Util;
 import utils.ToastUtil;
 import zhiren.gasdetection.AnJian.CheckListActivity;
+import zhiren.gasdetection.AnJian.HistoryDataActivity;
+import zhiren.gasdetection.AnJian.RefuseActivity;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
 
@@ -110,7 +112,7 @@ public class TaskDetailActivity extends BaseActivity {
     private static final String Not_Allow = "拒绝入户";
     private static final String Not_Meet = "到访不遇";
     private static final String Normal_Enter = "正常入户";
-    private int taskId;
+    private int taskId, customer_id;
     private int flag;//区别点击的按钮
     private String base64 = "";// 录音文件流
     private String fileName = "";// 录音文件名
@@ -127,7 +129,8 @@ public class TaskDetailActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_back, R.id.ivEdit, R.id.ivRecord, R.id.ivPlay, R.id.btnEnter, R.id.btnNotMeet, R.id.btnNotAllow})
+    @OnClick({R.id.iv_back, R.id.ivEdit, R.id.ivRecord, R.id.ivPlay, R.id.btnEnter
+            , R.id.btnNotMeet, R.id.btnNotAllow, R.id.tvRight})
     public void onViewClicked(View view) {
 //      录音中状态点击非结束录音按钮弹框提示
         if (isRecording && view.getId() != R.id.ivRecord) {
@@ -164,6 +167,14 @@ public class TaskDetailActivity extends BaseActivity {
                     }
                     break;
                 case R.id.ivEdit:
+                    new AlertDialog.Builder(this)
+                            .setTitle("当前客户信息正在审核，不可编辑。")
+                            .setPositiveButton("我知道了", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).create().show();
                     break;
                 case R.id.ivPlay:
                     playInModeStream();
@@ -197,10 +208,14 @@ public class TaskDetailActivity extends BaseActivity {
                     flag = 3;
                     addCheckRecord(Not_Allow, base64, fileName);
                     break;
+                case R.id.tvRight:
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("customer_id", customer_id);
+                    startActivity(HistoryDataActivity.class, bundle);
+                    break;
             }
         }
     }
-
 
     public void startRecord() {
 //      开始录音就隐藏播放按钮
@@ -371,6 +386,7 @@ public class TaskDetailActivity extends BaseActivity {
     @Override
     protected void initData() {
         mText.setText("客户详情");
+        mTvRight.setVisibility(View.VISIBLE);
         checkPermissions();
         CheckTask.TaskDataBean taskDataBean = (CheckTask.TaskDataBean) getIntent().getSerializableExtra("CheckTask");
         mTvNum.setText(taskDataBean.getCustomer_no_show());
@@ -381,6 +397,7 @@ public class TaskDetailActivity extends BaseActivity {
         mTvArea.setText(taskDataBean.getCustomer_address_show());
         mTvFire.setText(taskDataBean.getCustomer_ventilate_status_show().equals("2") ? "未通气" : "已通气");
         taskId = taskDataBean.getId();
+        customer_id = taskDataBean.getCustomer_id();
         Log.d("base64", taskId + "");
     }
 
@@ -406,17 +423,18 @@ public class TaskDetailActivity extends BaseActivity {
                 .subscribe(new RxSubscriber<CheckRecord>(this) {
                     @Override
                     protected void _onNext(CheckRecord checkRecord) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("flag", flag);
+                        bundle.putInt("check_data_id", checkRecord.getId());
                         switch (flag) {
                             case 1:
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("check_data_id", checkRecord.getId());
                                 startActivity(CheckListActivity.class, bundle);
                                 break;
                             case 2:
-                                Log.d("base64", Not_Meet);
+                                startActivity(RefuseActivity.class, bundle);
                                 break;
                             case 3:
-                                Log.d("base64", Not_Allow);
+                                startActivity(RefuseActivity.class, bundle);
                                 break;
                             default:
                                 break;

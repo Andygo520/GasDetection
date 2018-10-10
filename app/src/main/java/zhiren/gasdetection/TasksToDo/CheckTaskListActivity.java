@@ -31,7 +31,7 @@ import zhiren.gasdetection.R;
 import zhiren.gasdetection.adapter.TaskAdapter;
 
 // 安检任务列表页
-public class TaskListActivity extends BaseActivity {
+public class CheckTaskListActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
     ImageView mIvBack;
@@ -147,14 +147,14 @@ public class TaskListActivity extends BaseActivity {
                             if (total <= 10 * page) {
                                 mSmartRefreshLayout.setEnableLoadMore(false);
                                 if (page > 1) {
-                                    ToastUtil.showToast(TaskListActivity.this, "数据加载完成");
+                                    ToastUtil.showToast(CheckTaskListActivity.this, "数据加载完成");
                                 }
                             } else {
                                 mSmartRefreshLayout.setEnableLoadMore(true);
                             }
                             if (page == 1) {
                                 dataList = checkTask.getTask_data();
-                                mTaskAdapter = new TaskAdapter(TaskListActivity.this, dataList, R.layout.task_list_item);
+                                mTaskAdapter = new TaskAdapter(CheckTaskListActivity.this, dataList, R.layout.task_list_item);
                                 mListView.setAdapter(mTaskAdapter);
                             } else {
                                 dataList.addAll(checkTask.getTask_data());
@@ -165,7 +165,7 @@ public class TaskListActivity extends BaseActivity {
 
                     @Override
                     protected void _onError(String message) {
-                        ToastUtil.showToast(TaskListActivity.this, message);
+                        ToastUtil.showToast(CheckTaskListActivity.this, message);
                     }
 
                     @Override

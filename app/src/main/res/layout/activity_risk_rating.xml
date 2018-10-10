@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/title_bar"/>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -40,13 +42,12 @@
                     />
             </LinearLayout>
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/listFirst"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_white"
-                android:divider="@color/color_light_gray"
-                android:dividerHeight="1dp"/>
+                />
 
             <TextView
                 android:layout_width="match_parent"
@@ -84,13 +85,12 @@
                     />
             </LinearLayout>
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/listSecond"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_white"
-                android:divider="@color/color_light_gray"
-                android:dividerHeight="1dp"/>
+                />
 
             <TextView
                 android:layout_width="match_parent"
@@ -128,13 +128,12 @@
                     />
             </LinearLayout>
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/listThird"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_white"
-                android:divider="@color/color_light_gray"
-                android:dividerHeight="1dp"/>
+                />
 
             <TextView
                 android:layout_width="match_parent"
@@ -151,6 +150,8 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/check_note_icon"
                 android:drawablePadding="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:gravity="left"
                 android:paddingBottom="10dp"
                 android:paddingLeft="15dp"

@@ -7,7 +7,7 @@
 
     <include layout="@layout/title_bar"/>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -735,7 +735,7 @@
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
-                android:text="器械到期"
+                android:text="器具到期"
                 android:textColor="@color/color_gray"
                 android:textSize="15sp"
                 />
@@ -869,7 +869,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/color_white"
-                android:drawableBottom="@mipmap/result_code_img"
+                android:drawableBottom="@mipmap/qr_img"
                 android:drawablePadding="8dp"
                 android:gravity="center_horizontal"
                 android:padding="15dp"
@@ -879,7 +879,7 @@
                 android:textSize="15sp"
                 />
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -11,7 +11,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="15dp"
         android:layout_weight="1"
-        android:drawableLeft="@mipmap/material_his_icon"
+        android:drawableLeft="@mipmap/check_history_icon"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:text="2018-04-18"
@@ -19,12 +19,16 @@
         android:textSize="14sp"
         />
 
-    <ImageView
+    <TextView
+        android:id="@+id/tvResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="15dp"
-        android:src="@mipmap/check_detail_icon"
+        android:drawablePadding="8dp"
+        android:drawableRight="@mipmap/check_detail_icon"
+        android:minWidth="40dp"
+        android:textSize="15sp"
         />
 
 </LinearLayout>

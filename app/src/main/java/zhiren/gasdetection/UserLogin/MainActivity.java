@@ -19,13 +19,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import utils.UrlHelper;
-import zhiren.gasdetection.AnJian.CheckResultActivity;
 import zhiren.gasdetection.AnJian.ClientSignatureActivity;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.InstallService.InstallDetailActivity;
 import zhiren.gasdetection.R;
 import zhiren.gasdetection.TasksToDo.CategoryActivity;
-import zhiren.gasdetection.TasksToDo.TaskListActivity;
+import zhiren.gasdetection.TasksToDo.CheckTaskListActivity;
+import zhiren.gasdetection.TasksToDo.VentilateTaskListActivity;
 import zhiren.gasdetection.TrainingTest.TrainingTestActivity;
 
 public class MainActivity extends BaseActivity {
@@ -161,10 +161,13 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.llAnJian:
                 bundle.putInt("id", id);
-                bundle.putBoolean("token",true);
-                startActivity(TaskListActivity.class,bundle);
+                bundle.putBoolean("token", true);
+                startActivity(CheckTaskListActivity.class, bundle);
                 break;
             case R.id.llDianHuo:
+                bundle.putInt("id", id);
+                bundle.putBoolean("token", true);
+                startActivity(VentilateTaskListActivity.class, bundle);
                 break;
             case R.id.llYinCang:
                 break;
@@ -184,7 +187,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(ClientSignatureActivity.class);
                 break;
             case R.id.tvFire:
-                startActivity(CheckResultActivity.class);
+                bundle.putInt("id", id);
+                startActivity(CategoryActivity.class, bundle);
                 break;
             case R.id.tvInstall:
                 startActivity(InstallDetailActivity.class);

@@ -45,8 +45,8 @@
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
-                        android:text="华润燃气"
-                        android:textColor="#ffffff"
+                        android:text="@string/company_name"
+                        android:textColor="@color/color_white"
                         android:textSize="18sp"
                         />
 

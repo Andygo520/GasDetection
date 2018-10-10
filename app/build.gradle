@@ -19,7 +19,6 @@ android {
 //      多个rxjava依赖包的过滤代码
         exclude 'META-INF/rxjava.properties'
     }
-
 }
 
 dependencies {

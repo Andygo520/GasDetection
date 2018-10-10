@@ -33,14 +33,137 @@
             />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/color_white"
-        android:divider="@color/color_light_gray"
-        android:dividerHeight="1dp"/>
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp">
+
+            <TextView
+                style="@style/text_wrap_15_dark_style"
+                android:layout_weight="1"
+                android:text="1、户内燃气安全隐患向客户解释清楚"
+                />
+
+            <ToggleButton
+                android:id="@+id/toggleButton1"
+                android:layout_width="55dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/check_button_selector"
+                android:checked="true"
+                android:textOff=""
+                android:textOn=""
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_light_gray"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp">
+
+            <TextView
+                style="@style/text_wrap_15_dark_style"
+                android:layout_weight="1"
+                android:text="2、户内燃气安全隐患整改措施解释到位"
+                />
+
+            <ToggleButton
+                android:id="@+id/toggleButton2"
+                android:layout_width="55dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/check_button_selector"
+                android:checked="true"
+                android:textOff=""
+                android:textOn=""
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_light_gray"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp">
+
+            <TextView
+                style="@style/text_wrap_15_dark_style"
+                android:layout_weight="1"
+                android:text="3、户内燃气安全知识宣传"
+                />
+
+            <ToggleButton
+                android:id="@+id/toggleButton3"
+                android:layout_width="55dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/check_button_selector"
+                android:checked="true"
+                android:textOff=""
+                android:textOn=""
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_light_gray"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp">
+
+            <TextView
+                style="@style/text_wrap_15_dark_style"
+                android:layout_weight="1"
+                android:text="4、户内燃气安全手册发放"
+                />
+
+            <ToggleButton
+                android:id="@+id/toggleButton4"
+                android:layout_width="55dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/check_button_selector"
+                android:checked="true"
+                android:textOff=""
+                android:textOn=""
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_light_gray"
+            />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnEnter"

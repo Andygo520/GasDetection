@@ -9,14 +9,13 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
         android:gravity="center"
         android:lineSpacingExtra="8dp"
-        android:text="关注城市燃气安全管家
-绑定后即可查询本次服务记录"
         android:textColor="@color/color_dark_gray"
         android:textSize="16sp"/>
 
@@ -32,7 +31,7 @@
             android:layout_width="134dp"
             android:layout_height="134dp"
             android:layout_marginBottom="18dp"
-            android:src="@mipmap/result_code_img"
+            android:src="@mipmap/qr_img"
             />
     </LinearLayout>
 

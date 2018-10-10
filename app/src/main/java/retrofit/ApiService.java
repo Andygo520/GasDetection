@@ -1,10 +1,14 @@
 package retrofit;
 
+import java.util.Date;
+
 import model.BrandSpec;
 import model.CheckItems;
 import model.CheckItemsDetail;
 import model.CheckRecord;
+import model.CheckResult;
 import model.CheckTask;
+import model.HistoricalData;
 import model.Street;
 import model.SystemUser;
 import retrofit2.http.Field;
@@ -124,37 +128,106 @@ public interface ApiService {
             @Field("picture3_name") String picture3_name
     );
 
+    /*
+     * 燃气安全知识宣讲提交
+     * */
+    @GET("PublicityCommit")
+    Observable<BaseModel<SystemUser>> publicityCommit(
+            @Query("check_data_id") int check_data_id,
+            @Query("publicity") String publicity
+    );
 
-//
-//    /*
-//     * 用户资料
-//     * */
-//    @GET("/system_user/personal/{id}")
-//    Observable<BaseModel<SystemUser>> profile(
-//            @Path("id") int id,
-//            @Query("token") String token
-//    );
-//
-//    /*
-//     *  系统用户列表
-//     * */
-//    @GET("/system_user/list")
-//    Observable<BaseModel<ArrayList<SystemUser>>> systemUser(
-//            @Query("query.name") String query,
-//            @Query("page.num") int page,
-//            @Query("token") String token
-//    );
-//
-//    /*
-//     *  操作日志
-//     * */
-//    @GET("/system_log/list")
-//    Observable<BaseModel<ArrayList<SystemLog>>> systemLog(
-//            @Query("query.name") String query,
-//            @Query("page.num") int page,
-//            @Query("token") String token
-//    );
-//
+    /*
+   * 获得安检结果
+   * */
+    @GET("GetCheckResult")
+    Observable<BaseModel<CheckResult>> getCheckResult(
+            @Query("check_data_id") int check_data_id
+    );
+
+    /*
+     *  用post方法确认签字提交
+     * */
+    @FormUrlEncoded
+    @POST("ConfirmSignCommit")
+    Observable<BaseModel<CheckRecord>> confirmSignCommit(
+            @Field("check_data_id") int check_data_id,
+            @Field("sign_picture") String sign_picture,
+            @Field("sign_picture_name") String sign_picture_name,
+            @Field("is_charge") boolean is_charge,
+            @Field("check_result") String check_result
+    );
+
+    /*
+  *  用post方法拒绝入户
+  * */
+    @FormUrlEncoded
+    @POST("Reject")
+    Observable<BaseModel<CheckRecord>> reject(
+            @Field("check_data_id") int check_data_id,
+            @Field("check_result") String check_result,
+            @Field("remark") String remark,
+            @Field("miss_time") Date miss_time,
+            @Field("picture1") String picture1,
+            @Field("picture1_name") String picture1_name
+    );
+
+    /*
+*  用post方法到访不遇
+* */
+    @FormUrlEncoded
+    @POST("Miss")
+    Observable<BaseModel<CheckRecord>> miss(
+            @Field("check_data_id") int check_data_id,
+            @Field("check_result") String check_result,
+            @Field("remark") String remark,
+            @Field("miss_time") Date miss_time,
+            @Field("picture1") String picture1,
+            @Field("picture1_name") String picture1_name
+    );
+
+
+    /*
+     *  (安检)客户历史数据(默认一页10条)
+     * */
+    @GET("CustomerHistoryByPage")
+    Observable<BaseModel<HistoricalData>> checkHistory(
+            @Query("page") int page,
+            @Query("assign_to") int assign_to,
+            @Query("customer_id") int customer_id
+    );
+
+    /*
+   *  风险等级备注提交
+   * */
+    @GET("RiskRemarkCommit")
+    Observable<BaseModel<CheckRecord>> riskRemarkCommit(
+            @Query("check_data_id") int check_data_id,
+            @Query("remark") String remark
+    );
+
+    /*
+   *  获取员工点火任务下的客户街道和小区
+   * */
+    @GET("GetStreetAndArea2")
+    Observable<BaseModel<Street>> getStreetAndArea2(
+            @Query("assign_to") int id,
+            @Query("token") boolean token
+    );
+
+    /*
+     *员工点火任务分页获取(默认一页10条)
+    * */
+    @GET("VentilateTaskByPage")
+    Observable<BaseModel<CheckTask>> ventilateTaskList(
+            @Query("page") int page,
+            @Query("assign_to") int assign_to,
+            @Query("token") boolean token,
+            @Query("street") String street,
+            @Query("area") String area,
+            @Query("key") String key
+    );
+
 //    /*
 //     *  系统用户详情
 //     * */

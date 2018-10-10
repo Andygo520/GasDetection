@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:drawableBottom="@mipmap/check_sign_icon"
             android:drawablePadding="8dp"
-            android:text="点击输入或上传签名"
+            android:text="点击手写签名"
             android:textColor="#adc1cd"
             android:textSize="13sp"
             />
@@ -55,7 +55,7 @@
             android:id="@+id/ivSignature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_margin="5dp"
             android:visibility="gone"
             />
     </LinearLayout>
@@ -84,10 +84,11 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_selector"
+            android:background="@drawable/white_blue_bg_selector"
             android:button="@null"
             android:gravity="center"
             android:text="需要整改安装"
+            android:checked="true"
             android:textColor="@color/white_gray_selector"
             android:textSize="14sp"
             />
@@ -98,7 +99,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_selector"
+            android:background="@drawable/white_blue_bg_selector"
             android:button="@null"
             android:gravity="center"
             android:text="自行整改安装"
@@ -110,7 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_selector"
+            android:background="@drawable/white_blue_bg_selector"
             android:button="@null"
             android:gravity="center"
             android:text="不整改安装"

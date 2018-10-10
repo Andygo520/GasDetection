@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.qs.helper.printer.BlueToothService;
 import com.qs.helper.printer.BtService;
 import com.qs.helper.printer.ClsUtils;
@@ -33,7 +34,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import model.CheckResult;
+import retrofit.Api;
+import retrofit.RxHelper;
+import retrofit.RxSubscriber;
 import utils.ToastUtil;
+import utils.UrlHelper;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
 
@@ -121,6 +127,7 @@ public class CheckResultActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        getDetail();
         dialog = new BottomSheetDialog(this);
         final View dialogView = LayoutInflater.from(this).inflate(R.layout.bottom_dialog, null);
         ListView listView = dialogView.findViewById(R.id.list);
@@ -264,6 +271,50 @@ public class CheckResultActivity extends BaseActivity {
             }
         };
         thread.start();
+    }
+
+    public void getDetail() {
+        int check_data_id = getIntent().getExtras().getInt("check_data_id");
+        Api.getDefault().getCheckResult(check_data_id)
+                .compose(RxHelper.<CheckResult>handleResult())
+                .subscribe(new RxSubscriber<CheckResult>(this) {
+                    @Override
+                    protected void _onNext(CheckResult checkResult) {
+                        mTvNo.setText(checkResult.getCustomer().getCustomer_no());
+                        mTvName.setText(checkResult.getCustomer().getName());
+                        mTvPhone.setText(checkResult.getCustomer().getTel());
+//                        mTvTableNo.setText(checkResult.getCustomer());
+                        mTvType.setText(checkResult.getCustomer().getCustomer_type());
+                        mTvCommunity.setText(checkResult.getCustomer().getArea());
+
+                        mTvStaffName.setText(checkResult.getStaff().getRealname());
+                        mTvStaffNo.setText(checkResult.getStaff().getStaffno());
+                        mTvStartTime.setText(checkResult.getCheck_data().getVisit_time_show());
+                        mTvFinishTime.setText(checkResult.getCheck_data().getFinish_time_show());
+
+                        mTvRuHu.setText(checkResult.getCheck_data().getCheck_detail());
+                        mTvZhengGai.setText(checkResult.getCheck_data().getCheck_result());
+
+                        mTvPay.setText(checkResult.getFee().getPay_status() == null ? "免费完成" : checkResult.getFee().getPay_status());
+                        mTvSum.setText(checkResult.getFee().getTotal_fee() + "");
+                        mTvPayType.setText(checkResult.getFee().getPay_by() == null ? "无" : checkResult.getFee().getPay_by());
+
+//                        mTvExpire1.setText(checkResult.getCheck_data().get);
+//                        mTvExpire2.setText();
+//                        mTvExpire3.setText();
+                        Glide.with(CheckResultActivity.this).load(UrlHelper.URL_IP + "/" + checkResult.getCheck_data().getSign_picture()).into(mIvSign);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        ToastUtil.showToast(CheckResultActivity.this, message);
+                    }
+
+                    @Override
+                    protected boolean showDialog() {
+                        return false;
+                    }
+                });
     }
 
     @Override

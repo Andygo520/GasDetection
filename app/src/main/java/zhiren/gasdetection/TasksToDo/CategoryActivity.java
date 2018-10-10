@@ -116,7 +116,7 @@ public class CategoryActivity extends BaseActivity {
                     bundle.putString("right", rightList.get(rightMenuAdapter.getSelectItem()));
                     Log.d("CategoryActivity", leftList.get(leftMenuAdapter.getSelectItem()));
                     Log.d("CategoryActivity", rightList.get(rightMenuAdapter.getSelectItem()));
-                    startActivity(TaskListActivity.class, bundle);
+                    startActivity(CheckTaskListActivity.class, bundle);
                 }
             }
         });

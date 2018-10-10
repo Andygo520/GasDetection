@@ -1,6 +1,7 @@
 package zhiren.gasdetection.AnJian;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,6 +40,8 @@ public class CheckListActivity extends BaseActivity {
     private List<CheckItems.ProjectData> dataList = new ArrayList<>();
     private CheckItemsAdapter mItemsAdapter;
     private int posi;//列表点击的条目
+    private String unqualified = "";//不合格条目id组成的字符串
+    private int check_data_id;//安检记录id
 
     @Override
     protected int getLayoutId() {
@@ -50,6 +53,7 @@ public class CheckListActivity extends BaseActivity {
         mText.setText("安检单列表");
         mItemsAdapter = new CheckItemsAdapter(CheckListActivity.this, dataList, R.layout.check_items_item);
         mList.setAdapter(mItemsAdapter);
+        check_data_id = getIntent().getExtras().getInt("check_data_id");
         getList();
     }
 
@@ -57,17 +61,13 @@ public class CheckListActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-            Log.d("unqualified12", "posi:" + posi);
-            String unqualified = data.getStringExtra("unqualified");
-            Log.d("unqualified12", "unqualified:" + unqualified.length());
+            unqualified = data.getStringExtra("unqualified");
             if (unqualified.length() == 0) {
                 dataList.get(posi).setResult("合格");
-                mItemsAdapter.setPass(true);
             } else {
                 dataList.get(posi).setResult("不合格");
-                mItemsAdapter.setPass(false);
             }
-            mItemsAdapter.notifyDataSetChanged();
+            mItemsAdapter.notifyDataSetHasChanged();
         }
     }
 
@@ -78,7 +78,6 @@ public class CheckListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 posi = position;
                 Intent intent = new Intent(CheckListActivity.this, CheckItemDetailActivity.class);
-                int check_data_id = getIntent().getExtras().getInt("check_data_id");
                 int itemId = dataList.get(position).getId();
                 String itemName = dataList.get(position).getName();
                 String itemType = dataList.get(position).getType();
@@ -100,6 +99,14 @@ public class CheckListActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn:
+//              有不合格项就跳转到风险评估页，否则跳转到第二步页面
+                if (unqualified.length() > 0) {
+                    startActivity(RiskRatingActivity.class);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("check_data_id", check_data_id);
+                    startActivity(PreachActivity.class, bundle);
+                }
                 break;
         }
     }
