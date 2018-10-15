@@ -1,10 +1,12 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by andy on 2018/8/24 0024 15:49.
  */
 
-public class SystemUser {
+public class SystemUser implements Serializable {
 
     private String company;
     private String depart;

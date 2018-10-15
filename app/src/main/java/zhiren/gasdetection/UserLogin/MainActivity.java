@@ -18,6 +18,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import model.SystemUser;
+import utils.ACache;
 import utils.UrlHelper;
 import zhiren.gasdetection.AnJian.ClientSignatureActivity;
 import zhiren.gasdetection.BaseActivity;
@@ -89,27 +91,19 @@ public class MainActivity extends BaseActivity {
         mTvInstall.setText("器具安装\n服务");
         mTvInspect.setText("巡线巡检");
         mTvCommunity.setText("微社区");
-        Bundle bundle = getIntent().getExtras();
-        id = bundle.getInt("id");
-        String realname = bundle.getString("realname");
-        String imgPath = bundle.getString("img");
-        String sex = bundle.getString("sex");
-        tel = bundle.getString("tel");
-        String staffno = bundle.getString("staffno");
-        String company = bundle.getString("company");
-        String introduce = bundle.getString("introduce");
-        mTvName.setText(realname);
-        mTvPhone.setText(tel);
-        mTvNum.setText(staffno);
-        mTvCompany.setText(company);
-        mTvIntro.setText(introduce);
-        if (sex.equals("男")) {
+        SystemUser user = (SystemUser) ACache.get(this).getAsObject("user");
+        id = user.getId();
+        mTvName.setText(user.getRealname());
+        mTvPhone.setText(user.getTel());
+        mTvNum.setText(user.getStaffno());
+        mTvCompany.setText(user.getCompany());
+        mTvIntro.setText(user.getIntroduce());
+        if (user.getSex().equals("男")) {
             mIvSex.setImageResource(R.mipmap.male_icon);
         } else {
             mIvSex.setImageResource(R.mipmap.female_icon);
         }
-
-        String path = UrlHelper.URL_IP + imgPath;
+        String path = UrlHelper.URL_IP + user.getImg();
         Glide.with(this).load(path).into(mIvPhoto);
     }
 

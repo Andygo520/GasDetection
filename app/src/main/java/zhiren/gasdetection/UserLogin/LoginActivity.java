@@ -1,6 +1,5 @@
 package zhiren.gasdetection.UserLogin;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +12,7 @@ import model.SystemUser;
 import retrofit.Api;
 import retrofit.RxHelper;
 import retrofit.RxSubscriber;
+import utils.ACache;
 import utils.CheckNetwork;
 import utils.SPHelper;
 import utils.StringUtil;
@@ -72,17 +72,9 @@ public class LoginActivity extends BaseActivity {
                 .subscribe(new RxSubscriber<SystemUser>(this) {
                     @Override
                     protected void _onNext(SystemUser systemUser) {
-                        Bundle bundle = new Bundle();
                         SPHelper.putInt(LoginActivity.this, "id", systemUser.getId());
-                        bundle.putInt("id", systemUser.getId());
-                        bundle.putString("realname", systemUser.getRealname());
-                        bundle.putString("img", systemUser.getImg());
-                        bundle.putString("sex", systemUser.getSex());
-                        bundle.putString("tel", systemUser.getTel());
-                        bundle.putString("staffno", systemUser.getStaffno());
-                        bundle.putString("company", systemUser.getCompany());
-                        bundle.putString("introduce", systemUser.getIntroduce());
-                        startActivity(MainActivity.class, bundle);
+                        ACache.get(LoginActivity.this).put("user", systemUser);
+                        startActivity(MainActivity.class);
                     }
 
                     @Override

@@ -131,7 +131,7 @@ public class VentilateTaskListActivity extends BaseActivity {
     }
 
     public void getList(final int page, String key) {
-        Api.getDefault().checkTaskList(page, id, token, leftStr, rightStr, key)
+        Api.getDefault().ventilateTaskList(page, id, token, leftStr, rightStr, key)
                 .compose(RxHelper.<CheckTask>handleResult())
                 .subscribe(new RxSubscriber<CheckTask>(this) {
                     @Override

@@ -57,7 +57,9 @@ public class RefuseActivity extends BaseActivity {
     ImageView mIv;
 
     private int flag, check_data_id;
-    private String pic, picName, result;
+    private String pic = "";//图片对应的Base64流
+    private String picName = "";
+    private String result, dateStr;
     private Date date;
 
     @Override
@@ -71,7 +73,8 @@ public class RefuseActivity extends BaseActivity {
         check_data_id = getIntent().getExtras().getInt("check_data_id");
         date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        mTvDate.setText(sdf.format(date));
+        dateStr = sdf.format(date);
+        mTvDate.setText(dateStr);
         if (flag == 2) {
             mText.setText("到访不遇");
             mRb1.setText("用户不在家");
@@ -111,7 +114,7 @@ public class RefuseActivity extends BaseActivity {
                 break;
             case R.id.iv:
             case R.id.tvUpPhoto:
- //             启动相册并拍照
+                //             启动相册并拍照
                 PictureSelector.create(this)
                         .openGallery(PictureMimeType.ofImage())
                         .selectionMode(PictureConfig.SINGLE)
@@ -134,7 +137,7 @@ public class RefuseActivity extends BaseActivity {
 
     public void commit(String result, String remark) {
         if (flag == 2) {
-            Api.getDefault().miss(check_data_id, result, remark, date, pic, picName)
+            Api.getDefault().miss(check_data_id, result, remark, dateStr, pic, picName)
                     .compose(RxHelper.<CheckRecord>handleResult())
                     .subscribe(new RxSubscriber<CheckRecord>(this) {
                         @Override
@@ -150,7 +153,7 @@ public class RefuseActivity extends BaseActivity {
                         }
                     });
         } else if (flag == 3) {
-            Api.getDefault().reject(check_data_id, result, remark, date, pic, picName)
+            Api.getDefault().reject(check_data_id, result, remark, dateStr, pic, picName)
                     .compose(RxHelper.<CheckRecord>handleResult())
                     .subscribe(new RxSubscriber<CheckRecord>(this) {
                         @Override

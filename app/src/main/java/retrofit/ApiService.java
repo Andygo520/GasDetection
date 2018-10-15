@@ -1,7 +1,5 @@
 package retrofit;
 
-import java.util.Date;
-
 import model.BrandSpec;
 import model.CheckItems;
 import model.CheckItemsDetail;
@@ -167,7 +165,7 @@ public interface ApiService {
             @Field("check_data_id") int check_data_id,
             @Field("check_result") String check_result,
             @Field("remark") String remark,
-            @Field("miss_time") Date miss_time,
+            @Field("miss_time") String miss_time,
             @Field("picture1") String picture1,
             @Field("picture1_name") String picture1_name
     );
@@ -181,7 +179,7 @@ public interface ApiService {
             @Field("check_data_id") int check_data_id,
             @Field("check_result") String check_result,
             @Field("remark") String remark,
-            @Field("miss_time") Date miss_time,
+            @Field("miss_time") String miss_time,
             @Field("picture1") String picture1,
             @Field("picture1_name") String picture1_name
     );

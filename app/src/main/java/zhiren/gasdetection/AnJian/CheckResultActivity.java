@@ -42,6 +42,7 @@ import utils.ToastUtil;
 import utils.UrlHelper;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
+import zhiren.gasdetection.UserLogin.MainActivity;
 
 import static utils.PrinterUtil.printText;
 
@@ -398,12 +399,18 @@ public class CheckResultActivity extends BaseActivity {
         dialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(MainActivity.class);
+    }
+
     @OnClick({R.id.iv_back, R.id.btnBack, R.id.btnPrint})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
             case R.id.btnBack:
-                finish();
+                startActivity(MainActivity.class);
                 break;
             case R.id.btnPrint:
                 if (isconnect) {

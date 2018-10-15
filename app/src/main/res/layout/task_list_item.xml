@@ -2,84 +2,66 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="108dp"
     android:background="@drawable/white_bg_radius_4"
-    android:divider="@mipmap/dottedline"
-    android:orientation="vertical"
-    android:showDividers="middle"
     >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        >
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            >
-
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@mipmap/list_name_icon"
-                android:drawablePadding="10dp"
-                android:text="李大一"
-                android:textColor="#333333"
-                android:textSize="16sp"
-                />
-
-            <TextView
-                android:id="@+id/tvNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@mipmap/list_num_icon"
-                android:drawablePadding="10dp"
-                android:text="12548451561588"
-                android:textColor="#666666"
-                android:textSize="14sp"
-                />
-
-            <TextView
-                android:id="@+id/tvLocate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@mipmap/list_posi_icon"
-                android:drawablePadding="10dp"
-                android:text="四新大道"
-                android:textColor="#666666"
-                android:textSize="14sp"
-                />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="15dp"
-            android:src="@mipmap/check_ok_icon"
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/list_name_icon"
+            android:drawablePadding="10dp"
+            android:text="李大一"
+            android:textColor="#333333"
+            android:textSize="16sp"
             />
+
+        <TextView
+            android:id="@+id/tvNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/list_num_icon"
+            android:drawablePadding="10dp"
+            android:text="12548451561588"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tvLocate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/list_posi_icon"
+            android:drawablePadding="10dp"
+            android:text="四新大道"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            />
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="待安检"
-        android:textColor="#58bdee"
-        android:textSize="14sp"
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="15dp"
+        android:src="@mipmap/check_ok_icon"
         />
+
 </LinearLayout>
