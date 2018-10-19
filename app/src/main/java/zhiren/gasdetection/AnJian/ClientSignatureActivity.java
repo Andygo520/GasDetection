@@ -24,6 +24,7 @@ import utils.FileToBase64Util;
 import utils.ToastUtil;
 import zhiren.gasdetection.BaseActivity;
 import zhiren.gasdetection.R;
+import zhiren.gasdetection.TasksToDo.FeeListActivity;
 import zhiren.gasdetection.TasksToDo.SignatureActivity;
 
 // 确认签名页面
@@ -90,7 +91,7 @@ public class ClientSignatureActivity extends BaseActivity {
                     @Override
                     protected void _onNext(CheckRecord checkRecord) {
                         if (isCharge) {
-
+                            startActivity(FeeListActivity.class);
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(ClientSignatureActivity.this);
                             final Dialog dialog = builder.create();

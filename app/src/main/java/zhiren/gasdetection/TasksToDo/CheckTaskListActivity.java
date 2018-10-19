@@ -49,7 +49,7 @@ public class CheckTaskListActivity extends BaseActivity {
     private int id;//用户ID
     private boolean token;//true显示当前用户数据，false显示所有数据
     private int page = 1;
-    private String leftStr, rightStr;
+    private String leftStr, rightStr, status;
     private int total;//列表总条数
     private String key;//查找内容
     private List<CheckTask.TaskDataBean> dataList = new ArrayList<>();
@@ -69,6 +69,7 @@ public class CheckTaskListActivity extends BaseActivity {
         token = bundle.getBoolean("token");
         leftStr = bundle.getString("left", "");
         rightStr = bundle.getString("right", "");
+        status = bundle.getString("status", "");
         getList(page, "");
     }
 
@@ -131,7 +132,7 @@ public class CheckTaskListActivity extends BaseActivity {
     }
 
     public void getList(final int page, String key) {
-        Api.getDefault().checkTaskList(page, id, token, leftStr, rightStr, key)
+        Api.getDefault().checkTaskList(page, id, token, leftStr, rightStr, key, status)
                 .compose(RxHelper.<CheckTask>handleResult())
                 .subscribe(new RxSubscriber<CheckTask>(this) {
                     @Override

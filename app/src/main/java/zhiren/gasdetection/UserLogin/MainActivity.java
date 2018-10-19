@@ -156,6 +156,7 @@ public class MainActivity extends BaseActivity {
             case R.id.llAnJian:
                 bundle.putInt("id", id);
                 bundle.putBoolean("token", true);
+                bundle.putString("status", "待安检");
                 startActivity(CheckTaskListActivity.class, bundle);
                 break;
             case R.id.llDianHuo:

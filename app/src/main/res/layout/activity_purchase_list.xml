@@ -10,7 +10,8 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -19,9 +20,12 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/llMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical"
+                android:visibility="gone"
                 >
 
                 <LinearLayout
@@ -53,21 +57,20 @@
                         />
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/lvMaterial"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerMaterial"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:divider="@color/color_light_gray"
-                    android:dividerHeight="0.5dp"
                     />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/llInstrument"
+                android:id="@+id/llTool"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
+                android:visibility="gone"
                 >
 
                 <LinearLayout
@@ -99,16 +102,15 @@
                         />
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/lvGoods"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerGoods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:divider="@color/color_light_gray"
-                    android:dividerHeight="0.5dp"
                     />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -145,12 +147,10 @@
                         />
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/lvService"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerService"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:divider="@color/color_light_gray"
-                    android:dividerHeight="0.5dp"
                     />
             </LinearLayout>
 
@@ -177,6 +177,7 @@
             />
 
         <TextView
+            android:id="@+id/tvNext"
             android:layout_width="106dp"
             android:layout_height="match_parent"
             android:background="@color/color_blue"
@@ -209,6 +210,7 @@
             />
 
         <TextView
+            android:id="@+id/tvDelete"
             android:layout_width="106dp"
             android:layout_height="match_parent"
             android:background="@color/color_red"

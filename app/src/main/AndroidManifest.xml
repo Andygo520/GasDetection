@@ -49,7 +49,7 @@
             android:name=".TasksToDo.TaskDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".TasksToDo.PurchaseListActivity"
+            android:name=".TasksToDo.FeeListActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".TasksToDo.PayActivity"
@@ -132,6 +132,8 @@
         <activity
             android:name=".TasksToDo.VentilateTaskListActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".TasksToDo.AddFeeActivity">
+        </activity>
     </application>
 
 </manifest>
